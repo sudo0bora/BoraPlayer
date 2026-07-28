@@ -3,7 +3,7 @@
    ========================================================================== */
 
 const Playlist = {
-masterLibrary: [],
+  masterLibrary: [],
   customPlaylists: [],
   currentQueue: [],
   originalQueue: [],
@@ -13,12 +13,14 @@ masterLibrary: [],
   totalPlayTime: 0, // Stored in seconds
 
   async loadSavedData() {
+    // 1. Load Tracks from IndexedDB
     const dbTracks = await DB.getAllTracks();
     this.masterLibrary = dbTracks.map(t => {
       if (t.fileRef) t.src = URL.createObjectURL(t.fileRef);
       return t;
     });
 
+    // 2. Load Playlists from LocalStorage
     const savedPls = localStorage.getItem('bora_playlists');
     if (savedPls) {
       this.customPlaylists = JSON.parse(savedPls);
@@ -26,6 +28,12 @@ masterLibrary: [],
       this.customPlaylists = [{ id: 'favs', name: '❤️ My Favorites', trackIds: [] }];
     }
     this.syncFavoritesPlaylist();
+
+    // 3. Load stored total listening time
+    const savedTime = localStorage.getItem('bora_player_total_play_time');
+    if (savedTime) {
+      this.totalPlayTime = parseFloat(savedTime) || 0;
+    }
   },
 
   savePlaylistsToStorage() {
@@ -44,13 +52,6 @@ masterLibrary: [],
     this.masterLibrary = [...this.masterLibrary, ...newTracks];
     this.syncFavoritesPlaylist();
     if (this.activeContextId === 'library') this.currentQueue = [...this.masterLibrary];
-  },
-  async loadSavedData() {
-    // Load stored total listening time
-    const savedTime = localStorage.getItem('bora_player_total_play_time');
-    if (savedTime) {
-      this.totalPlayTime = parseFloat(savedTime) || 0;
-    }
   },
 
   /**
@@ -86,7 +87,6 @@ masterLibrary: [],
     const hours = (this.totalPlayTime / 3600).toFixed(1);
     return `${hours}h`;
   },
-
   
   /**
    * Toggles shuffle mode ON or OFF.
