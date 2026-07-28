@@ -104,7 +104,12 @@ const UI = {
 
       // Click to play
       item.addEventListener('click', () => {
-        AudioEngine.playTrack(actualQueueIndex); 
+        const trackToPlay = Playlist.selectTrack(actualQueueIndex);
+        if (trackToPlay) {
+          AudioEngine.loadAndPlay(trackToPlay);
+          UI.renderPlaylist(Playlist.currentQueue);
+          UI.renderQueuePanel();
+        }
       });
 
       // --- DRAG AND DROP LOGIC ---

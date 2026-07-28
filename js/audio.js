@@ -45,6 +45,12 @@ const AudioEngine = {
         // NO PLAY COUNT INCREMENT HERE -> Prevents click-spamming play counts
         UI.updatePlayState(true);
         UI.updateNowPlaying(track);
+        
+        // FIX: Re-render the UI so the ".playing" highlight class moves to the active track
+        if (typeof UI !== 'undefined') {
+          UI.renderPlaylist(Playlist.currentQueue);
+          UI.renderQueuePanel();
+        }
       })
       .catch((err) => {
         console.error("Playback failed:", err);
