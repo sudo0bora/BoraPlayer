@@ -74,17 +74,22 @@
                 <header class="view-header">
                     <h1 id="view-title">Library</h1>
 
-                    <div class="header-actions">
+            <div class="header-actions">
                         <button id="add-playlist-btn" class="secondary-btn" style="display: none">
                             <i class="fa-solid fa-plus"></i> New Playlist
                         </button>
-
                         <button id="add-file-btn" class="secondary-btn">
                             <i class="fa-solid fa-file-circle-plus"></i> Add Files
                         </button>
-
                         <button id="add-folder-btn" class="primary-btn">
                             <i class="fa-solid fa-folder-plus"></i> Add Folder
+                        </button>
+                        <!-- New Playlist Action Buttons -->
+                        <button id="rename-playlist-btn" class="secondary-btn" style="display: none">
+                            <i class="fa-solid fa-pen"></i> Rename
+                        </button>
+                        <button id="delete-playlist-btn" class="danger-btn" style="display: none">
+                            <i class="fa-solid fa-trash"></i> Delete
                         </button>
                     </div>
                 </header>
@@ -125,21 +130,21 @@
 
                 <div class="playback-controls">
                     <div class="buttons">
-                        <button id="repeat-btn" class="control-btn" aria-label="Repeat Off" data-mode="0">
-                            <i class="fa-solid fa-repeat"></i>
-                        </button>
-
-                        <button id="prev-btn" class="control-btn" aria-label="Previous">
-                            <i class="fa-solid fa-backward-step"></i>
-                        </button>
-
-                        <button id="play-btn" class="control-btn play-btn" aria-label="Play">
-                            <i class="fa-solid fa-play"></i>
-                        </button>
-
-                        <button id="next-btn" class="control-btn" aria-label="Next">
-                            <i class="fa-solid fa-forward-step"></i>
-                        </button>
+<button id="shuffle-btn" class="control-btn" title="Shuffle: Off">
+    <i class="fa-solid fa-shuffle"></i>
+  </button>
+  <button id="prev-btn" class="control-btn" title="Previous Track">
+    <i class="fa-solid fa-backward-step"></i>
+  </button>
+  <button id="play-btn" class="control-btn play-main" title="Play/Pause">
+    <i class="fa-solid fa-play"></i>
+  </button>
+  <button id="next-btn" class="control-btn" title="Next Track">
+    <i class="fa-solid fa-forward-step"></i>
+  </button>
+  <button id="repeat-btn" class="control-btn" title="Repeat: Off">
+    <i class="fa-solid fa-repeat"></i>
+  </button>
                     </div>
 
                     <div class="progress-container">
@@ -241,7 +246,7 @@
             </div>
         </div>
 
-        <!-- Settings Modal -->
+<!-- Settings Modal -->
 
         <div id="settings-modal" class="modal-overlay hidden">
             <div class="modal-content settings-content">
@@ -249,42 +254,43 @@
 
                 <div class="settings-section">
                     <h4>Library Stats</h4>
-
-                    <div class="settings-stats" id="settings-stats">
-                        <div class="stat-pill">
-                            <span class="stat-num" id="stat-tracks">0</span><span class="stat-label">Songs</span>
-                        </div>
-
-                        <div class="stat-pill">
-                            <span class="stat-num" id="stat-playlists">0</span><span class="stat-label">Playlists</span>
-                        </div>
-
-                        <div class="stat-pill">
-                            <span class="stat-num" id="stat-favorites">0</span><span class="stat-label">Favorites</span>
-                        </div>
-
-                        <div class="stat-pill">
-                            <span class="stat-num" id="stat-plays">0</span><span class="stat-label">Total Plays</span>
-                        </div>
-                    </div>
+<div class="settings-stats" id="settings-stats">
+        <div class="stat-pill">
+            <span class="stat-num" id="stat-tracks">0</span><span class="stat-label">Songs</span>
+        </div>
+        <div class="stat-pill">
+            <span class="stat-num" id="stat-playlists">0</span><span class="stat-label">Playlists</span>
+        </div>
+        <div class="stat-pill">
+            <span class="stat-num" id="stat-favorites">0</span><span class="stat-label">Favorites</span>
+        </div>
+        <div class="stat-pill">
+            <span class="stat-num" id="stat-plays">0</span><span class="stat-label">Total Plays</span>
+        </div>
+        <div class="stat-pill">
+            <span class="stat-num" id="stat-hours">0m</span><span class="stat-label">Time Played</span>
+        </div>
+    </div>
                 </div>
 
                 <div class="settings-section">
-                    <h4>Export Data</h4>
-
+                    <h4>Import & Export Data</h4>
                     <p class="settings-desc">
-                        Export your songs (title, artist, album, thumbnail, favorites and play counts) and playlists.
+                        Export your library backup, or restore tracks, play counts, and playlists from a JSON file.
                     </p>
-
                     <div class="settings-export-buttons">
                         <button id="export-json-btn" class="secondary-btn">
-                            <i class="fa-solid fa-file-export"></i> Export as JSON
+                            <i class="fa-solid fa-file-export"></i> Export JSON
                         </button>
-
                         <button id="export-csv-btn" class="secondary-btn">
-                            <i class="fa-solid fa-file-csv"></i> Export as CSV
+                            <i class="fa-solid fa-file-csv"></i> Export CSV
+                        </button>
+                        <button id="import-json-btn" class="primary-btn">
+                            <i class="fa-solid fa-file-import"></i> Import Backup
                         </button>
                     </div>
+                    <!-- Hidden input to select JSON file -->
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;" />
                 </div>
 
                 <div class="modal-buttons">
@@ -319,23 +325,21 @@
             </div>
         </aside>
 
-        <!-- Context Menu -->
-
+<!-- Context Menu -->
         <div id="track-context-menu" class="context-menu hidden">
             <div class="menu-item" id="menu-fav"><i class="fa-solid fa-heart"></i> Toggle Favorite</div>
-
             <div class="menu-item" id="menu-edit"><i class="fa-solid fa-pen"></i> Edit Info</div>
-
             <div class="menu-item" id="menu-add-playlist"><i class="fa-solid fa-list-ul"></i> Add to Playlist</div>
-
             <div class="menu-divider"></div>
-
             <div class="menu-item" id="menu-play-next"><i class="fa-solid fa-forward"></i> Play Next</div>
-
             <div class="menu-item" id="menu-add-queue"><i class="fa-solid fa-layer-group"></i> Add to Queue</div>
+            
+            <!-- New: Remove from playlist -->
+            <div class="menu-item menu-item-danger" id="menu-remove-from-playlist" style="display: none">
+                <i class="fa-solid fa-folder-minus"></i> Remove from Playlist
+            </div>
 
             <div class="menu-divider"></div>
-
             <div class="menu-item menu-item-danger" id="menu-delete"><i class="fa-solid fa-trash"></i> Delete</div>
         </div>
 
