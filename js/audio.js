@@ -5,9 +5,30 @@
 const AudioEngine = {
   audio: new Audio(),
   repeatMode: 0, // 0: Off, 1: Repeat All, 2: Repeat One
+  lastPosition: 0, // Tracks position for play time accumulation
 
   init() {
-    this.audio.addEventListener('timeupdate', () => UI.updateProgress());
+    // 1. Time Tracker & Progress Bar Update
+    this.audio.addEventListener('timeupdate', () => {
+      if (!this.audio.paused && !this.audio.seeking) {
+        const delta = this.audio.currentTime - this.lastPosition;
+        // Only accumulate smooth playback (ignores scrubbing and skips)
+        if (delta > 0 && delta < 1.5) {
+          if (typeof Playlist !== 'undefined' && Playlist.addPlayTime) {
+            Playlist.addPlayTime(delta);
+          }
+        }
+      }
+      this.lastPosition = this.audio.currentTime;
+      UI.updateProgress();
+    });
+
+    // Reset reference position during manual seeking/scrubbing
+    this.audio.addEventListener('seeking', () => {
+      this.lastPosition = this.audio.currentTime;
+    });
+
+    // Handle track completion
     this.audio.addEventListener('ended', () => this.handleTrackEnd());
   },
 
@@ -17,14 +38,13 @@ const AudioEngine = {
     this.audio.pause();
     this.audio.src = track.src;
     this.audio.load();
+    this.lastPosition = 0; // Reset tracking position for new song
 
     this.audio.play()
       .then(() => {
-        track.playCount = (track.playCount || 0) + 1;
-        Playlist.updateTrackStats(track.id, { playCount: track.playCount });
+        // NO PLAY COUNT INCREMENT HERE -> Prevents click-spamming play counts
         UI.updatePlayState(true);
         UI.updateNowPlaying(track);
-        UI.renderPlaylist(Playlist.currentQueue);
       })
       .catch((err) => {
         console.error("Playback failed:", err);
@@ -75,6 +95,20 @@ const AudioEngine = {
   },
 
   handleTrackEnd() {
+    // 2. Play Count Increments ONLY when a song naturally reaches the end
+    const currentTrack = Playlist.currentQueue[Playlist.currentIndex];
+    if (currentTrack) {
+      currentTrack.playCount = (currentTrack.playCount || 0) + 1;
+
+      if (Playlist.updateTrackStats) {
+        Playlist.updateTrackStats(currentTrack.id, { playCount: currentTrack.playCount });
+      } else if (Playlist.incrementPlayCount) {
+        Playlist.incrementPlayCount(currentTrack.id);
+      }
+
+      UI.renderPlaylist(Playlist.currentQueue);
+    }
+
     if (this.repeatMode === 2) {
       this.audio.currentTime = 0;
       this.audio.play();
@@ -96,7 +130,9 @@ const AudioEngine = {
 
   seek(percent) {
     if (this.audio.duration && !isNaN(this.audio.duration)) {
-      this.audio.currentTime = (percent / 100) * this.audio.duration;
+      const newTime = (percent / 100) * this.audio.duration;
+      this.audio.currentTime = newTime;
+      this.lastPosition = newTime; // Keep tracking sync after manual seek
     }
   },
 

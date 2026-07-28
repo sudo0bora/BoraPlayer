@@ -38,10 +38,51 @@ const App = {
     document.getElementById('seek-bar').addEventListener('input', (e) => {
       AudioEngine.seek(e.target.value);
     });
+    // --- SHUFFLE BUTTON BINDING ---
+  const shuffleBtn = document.getElementById('shuffle-btn');
+  if (shuffleBtn) {
+    shuffleBtn.addEventListener('click', () => {
+      const isShuffle = Playlist.toggleShuffle();
+      UI.updateShuffleUI(isShuffle);
+      UI.renderPlaylist(Playlist.currentQueue);
+      UI.renderQueuePanel();
+      Helpers.showToast(isShuffle ? 'Shuffle Enabled' : 'Shuffle Disabled');
+    });
+  }
 
     document.getElementById('volume-slider').addEventListener('input', (e) => {
       AudioEngine.setVolume(e.target.value / 100);
     });
+
+    // --- RENAME & DELETE PLAYLIST BUTTONS ---
+    const renameBtn = document.getElementById('rename-playlist-btn');
+    if (renameBtn) {
+      renameBtn.addEventListener('click', async () => {
+        const playlistId = Playlist.activeContextId;
+        const playlist = Playlist.customPlaylists.find(p => p.id === playlistId);
+        if (!playlist) return;
+
+        const newName = await Helpers.promptModal('Rename Playlist', 'New Playlist Name', playlist.name);
+        if (newName && newName.trim()) {
+          await Playlist.renamePlaylist(playlistId, newName.trim());
+        }
+      });
+    }
+
+    const deleteBtn = document.getElementById('delete-playlist-btn');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', async () => {
+        const playlistId = Playlist.activeContextId;
+        const playlist = Playlist.customPlaylists.find(p => p.id === playlistId);
+        if (!playlist) return;
+
+        const confirmed = await Helpers.confirmModal('Delete Playlist', `Are you sure you want to delete "${playlist.name}"?`);
+        if (confirmed) {
+          await Playlist.deletePlaylist(playlistId);
+          UI.renderPlaylist(Playlist.currentQueue);
+        }
+      });
+    }
 
     const playlistContent = document.getElementById('playlist-content');
     if (playlistContent) {
@@ -79,6 +120,7 @@ const App = {
             document.getElementById('view-title').textContent = pl.name;
             document.getElementById('track-headers').style.display = 'flex';
             Playlist.switchContext(plId);
+            UI.updateHeaderActions(plId);
             UI.renderPlaylist(Playlist.currentQueue);
           }
         }
@@ -103,11 +145,13 @@ const App = {
           trackHeaders.style.display = "flex";
           if (addPlaylistBtn) addPlaylistBtn.style.display = "none";
           Playlist.switchContext('library');
+          UI.updateHeaderActions('library');
           UI.renderPlaylist(Playlist.currentQueue);
         } else if (view === 'playlists') {
           viewTitle.textContent = "Playlists";
           trackHeaders.style.display = "none";
           if (addPlaylistBtn) addPlaylistBtn.style.display = "inline-block";
+          UI.updateHeaderActions('playlists');
           UI.renderPlaylistsView(Playlist.customPlaylists);
         }
       });
@@ -129,6 +173,7 @@ const App = {
     const menu = document.getElementById('track-context-menu');
     const editModal = document.getElementById('edit-modal');
     const addModal = document.getElementById('add-playlist-modal');
+    const removeFromPlaylistMenu = document.getElementById('menu-remove-from-playlist');
     let currentEditId = null;
 
     document.addEventListener('click', (e) => {
@@ -137,6 +182,12 @@ const App = {
         const btn = e.target.closest('.more-btn');
         const row = btn.closest('.track-row');
         this.activeContextTrackId = row.dataset.id;
+
+        // Show/Hide "Remove from Playlist" option depending on whether we are inside a custom playlist
+        if (removeFromPlaylistMenu) {
+          const isCustomPlaylist = Playlist.activeContextId !== 'library' && Playlist.customPlaylists.some(p => p.id === Playlist.activeContextId);
+          removeFromPlaylistMenu.style.display = isCustomPlaylist ? 'flex' : 'none';
+        }
 
         const rect = btn.getBoundingClientRect();
         menu.style.top = `${rect.bottom + window.scrollY + 5}px`;
@@ -199,6 +250,16 @@ const App = {
       }
       menu.classList.add('hidden');
     });
+
+    if (removeFromPlaylistMenu) {
+      removeFromPlaylistMenu.addEventListener('click', async () => {
+        if (this.activeContextTrackId && Playlist.activeContextId) {
+          await Playlist.removeTrackFromPlaylist(Playlist.activeContextId, this.activeContextTrackId);
+          UI.renderPlaylist(Playlist.currentQueue);
+        }
+        menu.classList.add('hidden');
+      });
+    }
 
     document.getElementById('menu-play-next').addEventListener('click', () => {
       if (this.activeContextTrackId) {
@@ -293,6 +354,25 @@ const App = {
       Playlist.exportCSV();
       Helpers.showToast('CSV library exported successfully!', 'success');
     });
+
+    // --- IMPORT JSON BACKUP HANDLER ---
+    const importBtn = document.getElementById('import-json-btn');
+    const importInput = document.getElementById('import-file-input');
+    if (importBtn && importInput) {
+      importBtn.addEventListener('click', () => importInput.click());
+
+      importInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          await Playlist.importJSON(event.target.result);
+          importInput.value = ''; // Reset file input
+        };
+        reader.readAsText(file);
+      });
+    }
   },
 
   async loadDefaultPlaylist() {

@@ -18,6 +18,7 @@ const UI = {
     tracks.forEach((track, index) => {
       const row = document.createElement('div');
       row.className = 'track-row';
+      row.tabIndex = 0; // Allows focusing via keyboard
       if (Playlist.currentIndex === index) row.classList.add('playing');
       row.dataset.index = index;
       row.dataset.id = track.id;
@@ -84,19 +85,92 @@ const UI = {
       return;
     }
 
-    upcoming.forEach((track) => {
+    upcoming.forEach((track, idx) => {
       const item = document.createElement('div');
-      item.style.cssText = "padding:8px 10px; background:var(--bg-app); border-radius:6px; font-size:0.9rem; margin-bottom:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;";
+      item.className = 'queue-item';
+      
+      const actualQueueIndex = Playlist.currentIndex + 1 + idx;
+      
+      // Make item draggable
+      item.draggable = true;
+      
+      // Styling with grab cursor
+      item.style.cssText = "padding:8px 10px; background:var(--bg-app); border-radius:6px; font-size:0.9rem; margin-bottom:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:grab; transition: background 0.2s;";
       item.textContent = `${track.title} - ${track.artist}`;
+      
+      // Hover effect
+      item.onmouseenter = () => item.style.backgroundColor = 'var(--bg-surface-active, #34343e)';
+      item.onmouseleave = () => item.style.backgroundColor = 'var(--bg-app, #121214)';
+
+      // Click to play
+      item.addEventListener('click', () => {
+        AudioEngine.playTrack(actualQueueIndex); 
+      });
+
+      // --- DRAG AND DROP LOGIC ---
+      item.addEventListener('dragstart', (e) => {
+        // Store the original queue index of the item being dragged
+        e.dataTransfer.setData('text/plain', actualQueueIndex);
+        e.dataTransfer.effectAllowed = 'move';
+        item.style.opacity = '0.5'; // Ghost effect while dragging
+      });
+
+      item.addEventListener('dragend', () => {
+        item.style.opacity = '1';
+        // Clean up any remaining drop indicators
+        document.querySelectorAll('.queue-item').forEach(el => el.style.borderTop = '');
+      });
+
+      item.addEventListener('dragover', (e) => {
+        e.preventDefault(); // Necessary to allow dropping
+        e.dataTransfer.dropEffect = 'move';
+        // Visual indicator of where the item will drop (line above the item)
+        item.style.borderTop = '2px solid var(--primary, #1db954)';
+      });
+
+      item.addEventListener('dragleave', () => {
+        item.style.borderTop = ''; // Remove line when leaving
+      });
+
+      item.addEventListener('drop', (e) => {
+        e.preventDefault();
+        item.style.borderTop = ''; // Remove line
+        
+        const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+        const toIndex = actualQueueIndex;
+
+        // If it was dropped in a new position
+        if (!isNaN(fromIndex) && fromIndex !== toIndex) {
+          // 1. Remove the track from its old position
+          const movedTrack = Playlist.currentQueue.splice(fromIndex, 1)[0];
+          
+          // 2. Adjust the drop index (since array shrunk when we removed the item)
+          const insertIndex = fromIndex < toIndex ? toIndex - 1 : toIndex;
+          
+          // 3. Insert the track into its new position
+          Playlist.currentQueue.splice(insertIndex, 0, movedTrack);
+          
+          // 4. Re-render the panel to show updated order
+          UI.renderQueuePanel();
+        }
+      });
+
       queueListEl.appendChild(item);
     });
   },
 
   updateSettingsStats() {
-    document.getElementById('stat-tracks').textContent = Playlist.masterLibrary.length;
-    document.getElementById('stat-playlists').textContent = Playlist.customPlaylists.length;
-    document.getElementById('stat-favorites').textContent = Playlist.masterLibrary.filter(t => t.favorite).length;
-    document.getElementById('stat-plays').textContent = Playlist.masterLibrary.reduce((sum, t) => sum + (t.playCount || 0), 0);
+    const tracksEl = document.getElementById('stat-tracks');
+    const playlistsEl = document.getElementById('stat-playlists');
+    const favoritesEl = document.getElementById('stat-favorites');
+    const playsEl = document.getElementById('stat-plays');
+    const hoursEl = document.getElementById('stat-hours');
+
+    if (tracksEl) tracksEl.textContent = Playlist.masterLibrary.length;
+    if (playlistsEl) playlistsEl.textContent = Playlist.customPlaylists.length;
+    if (favoritesEl) favoritesEl.textContent = Playlist.masterLibrary.filter(t => t.favorite).length;
+    if (playsEl) playsEl.textContent = Playlist.masterLibrary.reduce((sum, t) => sum + (t.playCount || 0), 0);
+    if (hoursEl) hoursEl.textContent = Playlist.getFormattedPlayTime ? Playlist.getFormattedPlayTime() : '0m';
   },
 
   updateNowPlaying(track) {
@@ -146,6 +220,42 @@ const UI = {
     if (isMuted || volumeVal === 0) muteBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
     else if (volumeVal < 0.5) muteBtn.innerHTML = '<i class="fa-solid fa-volume-low"></i>';
     else muteBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+  },
+
+  updateHeaderActions(context) {
+    const addFileBtn = document.getElementById('add-file-btn');
+    const addFolderBtn = document.getElementById('add-folder-btn');
+    const renameBtn = document.getElementById('rename-playlist-btn');
+    const deleteBtn = document.getElementById('delete-playlist-btn');
+
+    // Check if context is a custom playlist (not 'library' and not 'favs')
+    const isCustomPlaylist = context !== 'library' && Playlist.customPlaylists.some(p => p.id === context);
+
+    if (isCustomPlaylist) {
+      if (addFileBtn) addFileBtn.style.display = 'none';
+      if (addFolderBtn) addFolderBtn.style.display = 'none';
+      if (renameBtn) renameBtn.style.display = 'inline-flex';
+      if (deleteBtn) deleteBtn.style.display = 'inline-flex';
+    } else {
+      if (addFileBtn) addFileBtn.style.display = 'inline-flex';
+      if (addFolderBtn) addFolderBtn.style.display = 'inline-flex';
+      if (renameBtn) renameBtn.style.display = 'none';
+      if (deleteBtn) deleteBtn.style.display = 'none';
+    }
+  },
+
+  updateShuffleUI(isShuffle) {
+    const btn = document.getElementById('shuffle-btn');
+    if (!btn) return;
+
+    btn.dataset.active = isShuffle ? 'true' : 'false';
+    if (isShuffle) {
+      btn.style.color = 'var(--primary, #1db954)';
+      btn.title = 'Shuffle: On';
+    } else {
+      btn.style.color = 'var(--text-muted, #8e8e99)';
+      btn.title = 'Shuffle: Off';
+    }
   },
 
   updateRepeatUI(mode) {
