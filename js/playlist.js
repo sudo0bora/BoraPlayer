@@ -229,18 +229,48 @@ const Playlist = {
     this.currentIndex = -1;
   },
 
-  exportJSON() {
+  async exportJSON() {
+    if (typeof Helpers !== 'undefined') Helpers.showToast('Packaging MP3 files and stats, this may take a moment...', 'info');
+
+    // 1. Pack library audio files into Base64
+    const libraryWithAudio = await Promise.all(this.masterLibrary.map(async (t) => {
+      const trackCopy = { ...t };
+      delete trackCopy.src; // Do not export volatile local URLs
+
+      if (trackCopy.fileRef) {
+        try {
+          trackCopy.audioBase64 = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(trackCopy.fileRef);
+          });
+          trackCopy.fileName = trackCopy.fileRef.name;
+          trackCopy.fileType = trackCopy.fileRef.type;
+        } catch (e) {
+          console.error("Failed to read file for backup:", t.title, e);
+        }
+      }
+      delete trackCopy.fileRef; // Remove direct File object reference
+      return trackCopy;
+    }));
+
+    // 2. Assemble backup package including total play time
     const data = {
-      library: this.masterLibrary.map(({ fileRef, src, ...rest }) => rest),
+      totalPlayTime: this.totalPlayTime,
+      library: libraryWithAudio,
       playlists: this.customPlaylists
     };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'bora-player-backup.json';
+    a.download = 'bora-player-full-backup.json';
     a.click();
     URL.revokeObjectURL(url);
+
+    if (typeof Helpers !== 'undefined') Helpers.showToast('Full backup downloaded successfully!');
   },
 
   exportCSV() {
@@ -260,7 +290,6 @@ const Playlist = {
   async importJSON(jsonText) {
     try {
       const data = JSON.parse(jsonText);
-      
       const importedTracks = data.library || data.tracks || data.masterLibrary || (Array.isArray(data) ? data : []);
       const importedPlaylists = data.playlists || data.customPlaylists || [];
 
@@ -269,23 +298,58 @@ const Playlist = {
         return;
       }
 
-      let addedTracksCount = 0;
-      let addedPlaylistsCount = 0;
+      if (typeof Helpers !== 'undefined') Helpers.showToast('Restoring backup... Please wait.', 'info');
 
-      // 1. Merge & Save Tracks
+      // 1. Restore Total Play Time (Safely take highest value to prevent shrinking)
+      if (data.totalPlayTime) {
+        this.totalPlayTime = Math.max(this.totalPlayTime, data.totalPlayTime);
+        localStorage.setItem('bora_player_total_play_time', this.totalPlayTime.toString());
+      }
+
+      let addedTracksCount = 0;
+      let updatedTracksCount = 0;
+      let addedPlaylistsCount = 0;
+      
+      const normalize = str => (str || '').toString().trim().toLowerCase();
+
+      // 2. Merge & Save Tracks
       for (const track of importedTracks) {
         if (!track.title) continue;
 
-        const existingIdx = this.masterLibrary.findIndex(
-          t => t.id === track.id || (t.title === track.title && t.artist === track.artist)
+        // SMART DEDUPLICATION: Match by ID, or Title + Artist
+        const existingTrack = this.masterLibrary.find(
+          t => t.id === track.id || 
+               (normalize(t.title) === normalize(track.title) && normalize(t.artist) === normalize(track.artist))
         );
 
-        if (existingIdx >= 0) {
-          this.masterLibrary[existingIdx] = { ...this.masterLibrary[existingIdx], ...track };
+        if (existingTrack) {
+          // Merge stats, but ignore incoming audio blobs to prevent duplicates/RAM usage
+          existingTrack.playCount = Math.max(existingTrack.playCount || 0, track.playCount || 0);
+          if (track.favorite) existingTrack.favorite = true;
+          if (track.artUrl && !existingTrack.artUrl) existingTrack.artUrl = track.artUrl;
+          if (track.album && !existingTrack.album) existingTrack.album = track.album;
+          
           if (typeof DB !== 'undefined' && DB.saveTrack) {
-            await DB.saveTrack(this.masterLibrary[existingIdx]);
+            await DB.saveTrack(existingTrack);
           }
+          updatedTracksCount++;
         } else {
+          // Unpack Base64 back into an audio File
+          if (track.audioBase64) {
+             try {
+               const response = await fetch(track.audioBase64);
+               const blob = await response.blob();
+               track.fileRef = new File([blob], track.fileName || `${track.title}.mp3`, { type: track.fileType || 'audio/mpeg' });
+               track.src = URL.createObjectURL(track.fileRef);
+             } catch (e) {
+               console.error("Failed to reconstruct audio for", track.title, e);
+               continue; // Skip track if unpacking failed
+             }
+          }
+          
+          // CRITICAL: Delete massive Base64 string from track object before storing in IndexedDB
+          delete track.audioBase64;
+          
           this.masterLibrary.push(track);
           if (typeof DB !== 'undefined' && DB.saveTrack) {
             await DB.saveTrack(track);
@@ -294,10 +358,9 @@ const Playlist = {
         }
       }
 
-      // 2. Merge & Save Custom Playlists
+      // 3. Merge & Save Custom Playlists
       for (const pl of importedPlaylists) {
         if (!pl.name) continue;
-
         const existingIdx = this.customPlaylists.findIndex(p => p.id === pl.id || p.name === pl.name);
 
         if (existingIdx >= 0) {
@@ -306,13 +369,10 @@ const Playlist = {
           this.customPlaylists.push(pl);
           addedPlaylistsCount++;
         }
-
-        if (typeof DB !== 'undefined' && DB.savePlaylist) {
-          await DB.savePlaylist(pl);
-        }
       }
+      this.savePlaylistsToStorage();
 
-      // 3. Refresh Queue and Views using activeContextId
+      // 4. Refresh Queue and Views
       if (this.activeContextId === 'library') {
         this.currentQueue = [...this.masterLibrary];
       } else {
@@ -320,12 +380,13 @@ const Playlist = {
       }
       
       UI.renderPlaylist(this.currentQueue);
-      UI.updateSettingsStats();
+      if (typeof UI.updateSettingsStats === 'function') UI.updateSettingsStats();
+      if (typeof UI.renderSidebarPlaylists === 'function') UI.renderSidebarPlaylists();
 
-      Helpers.showToast(`Imported ${addedTracksCount} new song(s) & ${addedPlaylistsCount} playlist(s)!`);
+      Helpers.showToast(`Imported ${addedTracksCount} new, updated ${updatedTracksCount} tracks, & ${addedPlaylistsCount} playlists!`);
     } catch (err) {
       console.error('Import failed:', err);
-      Helpers.showToast('Failed to parse backup JSON file.', 'error');
+      Helpers.showToast('Failed to process backup JSON file.', 'error');
     }
   },
 
