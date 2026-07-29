@@ -28,7 +28,10 @@ const UI = {
       row.innerHTML = `
         <div class="col-title">
           <i class="${favClass} favorite-icon" data-action="fav" title="Toggle Favorite"></i>
-          <span class="track-title-text">${Helpers.escapeHTML(track.title)}</span>
+          <div class="title-block">
+            <span class="track-title-text">${Helpers.escapeHTML(track.title)}</span>
+            <span class="track-subtitle">${Helpers.escapeHTML(track.artist)}</span>
+          </div>
         </div>
         <div class="col-artist">${Helpers.escapeHTML(track.artist)}</div>
         <div class="col-album">${Helpers.escapeHTML(track.album || 'Unknown Album')}</div>

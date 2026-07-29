@@ -19,6 +19,7 @@ const App = {
     this.bindViewEvents();
     this.bindMenuAndModalEvents();
     this.bindSettingsAndQueueEvents();
+    this.bindKeyboardShortcuts();
 
     if (Playlist.masterLibrary.length === 0) {
       await this.loadDefaultPlaylist();
@@ -189,10 +190,19 @@ const App = {
           removeFromPlaylistMenu.style.display = isCustomPlaylist ? 'flex' : 'none';
         }
 
-        const rect = btn.getBoundingClientRect();
-        menu.style.top = `${rect.bottom + window.scrollY + 5}px`;
-        menu.style.left = `${rect.left - 160}px`;
+        // Reveal first so offsetWidth reflects its real (possibly variable) size,
+        // e.g. when "Remove from Playlist" is shown/hidden above.
         menu.classList.remove('hidden');
+
+        const rect = btn.getBoundingClientRect();
+        const menuWidth = menu.offsetWidth || 190;
+        const margin = 8;
+
+        let left = rect.left - 160;
+        left = Math.max(margin, Math.min(left, window.innerWidth - menuWidth - margin));
+
+        menu.style.top = `${rect.bottom + window.scrollY + 5}px`;
+        menu.style.left = `${left}px`;
       } else if (!e.target.closest('#track-context-menu')) {
         menu.classList.add('hidden');
       }
@@ -373,6 +383,112 @@ const App = {
         reader.readAsText(file);
       });
     }
+  },
+
+  bindKeyboardShortcuts() {
+    const shortcutsModal = document.getElementById('shortcuts-modal');
+    const shortcutsBtn = document.getElementById('shortcuts-btn');
+    const closeShortcuts = document.getElementById('close-shortcuts');
+    const queuePanel = document.getElementById('queue-panel');
+    const contextMenu = document.getElementById('track-context-menu');
+
+    if (shortcutsBtn && shortcutsModal) {
+      shortcutsBtn.addEventListener('click', () => shortcutsModal.classList.remove('hidden'));
+    }
+    if (closeShortcuts && shortcutsModal) {
+      closeShortcuts.addEventListener('click', () => shortcutsModal.classList.add('hidden'));
+    }
+
+    const isTypingContext = () => {
+      const el = document.activeElement;
+      if (!el) return false;
+      const tag = el.tagName;
+      return tag === 'INPUT' || tag === 'TEXTAREA' || el.isContentEditable;
+    };
+
+    document.addEventListener('keydown', (e) => {
+      // Escape always closes overlays, even while a modal text field is focused
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay').forEach((m) => m.classList.add('hidden'));
+        if (queuePanel) queuePanel.classList.add('hidden');
+        if (contextMenu) contextMenu.classList.add('hidden');
+        return;
+      }
+
+      // Don't hijack typing in text fields, or browser/OS key combos (Ctrl/Cmd/Alt)
+      if (isTypingContext() || e.ctrlKey || e.metaKey || e.altKey) return;
+
+      switch (e.key) {
+        case ' ':
+        case 'Spacebar':
+          e.preventDefault();
+          AudioEngine.togglePlay();
+          break;
+
+        case 'ArrowRight':
+          e.preventDefault();
+          if (e.shiftKey) AudioEngine.playNext();
+          else this.nudgeSeek(5);
+          break;
+
+        case 'ArrowLeft':
+          e.preventDefault();
+          if (e.shiftKey) AudioEngine.playPrevious();
+          else this.nudgeSeek(-5);
+          break;
+
+        case 'ArrowUp':
+          e.preventDefault();
+          this.nudgeVolume(5);
+          break;
+
+        case 'ArrowDown':
+          e.preventDefault();
+          this.nudgeVolume(-5);
+          break;
+
+        case 'm':
+        case 'M':
+          document.getElementById('mute-btn')?.click();
+          break;
+
+        case 's':
+        case 'S':
+          document.getElementById('shuffle-btn')?.click();
+          break;
+
+        case 'r':
+        case 'R':
+          document.getElementById('repeat-btn')?.click();
+          break;
+
+        case 'q':
+        case 'Q':
+          document.getElementById('queue-toggle-btn')?.click();
+          break;
+
+        case '?':
+          if (shortcutsModal) shortcutsModal.classList.remove('hidden');
+          break;
+      }
+    });
+  },
+
+  nudgeSeek(deltaSeconds) {
+    const audio = AudioEngine.audio;
+    if (!audio.duration || isNaN(audio.duration)) return;
+    const newTime = Math.min(Math.max(audio.currentTime + deltaSeconds, 0), audio.duration);
+    audio.currentTime = newTime;
+    AudioEngine.lastPosition = newTime;
+    UI.updateProgress();
+  },
+
+  nudgeVolume(deltaPercent) {
+    const slider = document.getElementById('volume-slider');
+    if (!slider) return;
+    const newValue = Math.min(Math.max(parseInt(slider.value, 10) + deltaPercent, 0), 100);
+    slider.value = newValue;
+    AudioEngine.setVolume(newValue / 100);
   },
 
   async loadDefaultPlaylist() {

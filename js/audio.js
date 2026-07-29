@@ -21,6 +21,20 @@ const AudioEngine = {
       }
       this.lastPosition = this.audio.currentTime;
       UI.updateProgress();
+
+      if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+        if (this.audio.duration && !isNaN(this.audio.duration)) {
+          try {
+            navigator.mediaSession.setPositionState({
+              duration: this.audio.duration,
+              playbackRate: this.audio.playbackRate,
+              position: this.audio.currentTime
+            });
+          } catch (e) {
+            // Ignore transient errors (e.g. position briefly out of range during track swaps).
+          }
+        }
+      }
     });
 
     // Reset reference position during manual seeking/scrubbing
@@ -30,6 +44,50 @@ const AudioEngine = {
 
     // Handle track completion
     this.audio.addEventListener('ended', () => this.handleTrackEnd());
+
+    // OS-level media controls (lock screen, hardware/Bluetooth keys, notification widgets)
+    this.initMediaSession();
+  },
+
+  initMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+
+    navigator.mediaSession.setActionHandler('play', () => this.togglePlay());
+    navigator.mediaSession.setActionHandler('pause', () => this.togglePlay());
+    navigator.mediaSession.setActionHandler('previoustrack', () => this.playPrevious());
+    navigator.mediaSession.setActionHandler('nexttrack', () => this.playNext());
+
+    try {
+      navigator.mediaSession.setActionHandler('seekto', (details) => {
+        if (details.fastSeek && 'fastSeek' in this.audio) {
+          this.audio.fastSeek(details.seekTime);
+          return;
+        }
+        this.audio.currentTime = details.seekTime;
+        this.lastPosition = details.seekTime;
+      });
+    } catch (e) {
+      // Some browsers don't support the 'seekto' action; safe to ignore.
+    }
+
+    navigator.mediaSession.setActionHandler('stop', () => {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+      UI.updatePlayState(false);
+    });
+  },
+
+  updateMediaSessionMetadata(track) {
+    if (!('mediaSession' in navigator)) return;
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: track.title || 'Unknown Title',
+      artist: track.artist || 'Unknown Artist',
+      album: track.album || 'Unknown Album',
+      artwork: track.artUrl ? [
+        { src: track.artUrl, sizes: '512x512', type: 'image/png' }
+      ] : []
+    });
   },
 
   loadAndPlay(track) {
@@ -40,11 +98,17 @@ const AudioEngine = {
     this.audio.load();
     this.lastPosition = 0; // Reset tracking position for new song
 
+    this.updateMediaSessionMetadata(track);
+
     this.audio.play()
       .then(() => {
         // NO PLAY COUNT INCREMENT HERE -> Prevents click-spamming play counts
         UI.updatePlayState(true);
         UI.updateNowPlaying(track);
+
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.playbackState = 'playing';
+        }
         
         // FIX: Re-render the UI so the ".playing" highlight class moves to the active track
         if (typeof UI !== 'undefined') {
@@ -68,11 +132,15 @@ const AudioEngine = {
 
     if (this.audio.paused) {
       this.audio.play()
-        .then(() => UI.updatePlayState(true))
+        .then(() => {
+          UI.updatePlayState(true);
+          if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+        })
         .catch((err) => console.error("Play failed:", err));
     } else {
       this.audio.pause();
       UI.updatePlayState(false);
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
     }
   },
 
@@ -86,6 +154,7 @@ const AudioEngine = {
       this.audio.pause();
       this.audio.currentTime = 0;
       UI.updatePlayState(false);
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
     }
   },
 
