@@ -53,10 +53,10 @@
 .playlist-header,
 .track-row {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr 80px;
+  grid-template-columns: 2.5fr 1.5fr 1.5fr 70px 60px;
   align-items: center;
-  padding: var(--space-xs) var(--space-sm);
-  gap: var(--space-sm);
+  padding: 10px 16px;
+  gap: 16px;
 }
 
 .playlist-header {
@@ -66,7 +66,6 @@
   font-weight: var(--font-weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding-bottom: var(--space-xs);
   margin-bottom: var(--space-xs);
 }
 
@@ -79,94 +78,63 @@
 }
 
 .track-row {
+  background: transparent;
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-sm);
-  color: var(--text-muted);
+  color: var(--text-main);
   transition: background-color var(--transition-fast);
   cursor: pointer;
 }
 
 .track-row:hover {
   background-color: var(--bg-surface-hover);
-  color: var(--text-main);
-}
-
-.track-row .col-title {
-  color: var(--text-main);
-  font-weight: var(--font-weight-medium);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.track-row .col-artist,
-.track-row .col-album {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.track-row .col-duration {
-  text-align: right;
-}
-
-/* Clean, proportional track row and header grid layout */
-.playlist-header, .track-row {
-    display: grid;
-    grid-template-columns: 2.5fr 1.5fr 1.5fr 70px 60px;
-    align-items: center;
-    padding: 10px 16px;
-    gap: 16px;
-}
-
-.playlist-header {
-    color: var(--text-muted, #8e8e99);
-    font-size: 0.85rem;
-    font-weight: 600;
-    border-bottom: 1px solid var(--bg-surface-active, #34343e);
-    margin-bottom: 8px;
-}
-
-.track-row {
-    background: transparent;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-    color: var(--text-main, #ffffff);
-    font-size: 0.9rem;
-}
-
-.track-row:hover {
-    background-color: var(--bg-surface, #202026);
 }
 
 .track-row.playing {
-    background-color: var(--bg-surface-active, #34343e);
-    color: var(--primary, #1db954);
+  background-color: var(--bg-surface-active);
+  color: var(--primary);
 }
 
 .col-title {
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Wraps title + artist so the artist can be shown as a subtitle on narrow screens */
+.title-block {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .track-title-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.col-artist, .col-album {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: var(--text-muted, #8e8e99);
+/* Hidden by default on desktop, where the Artist column already shows this */
+.track-subtitle {
+  display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.col-artist,
+.col-album {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
 }
 
 .track-row.playing .col-artist,
 .track-row.playing .col-album {
-    color: var(--text-main, #ffffff);
+  color: var(--text-main);
 }
