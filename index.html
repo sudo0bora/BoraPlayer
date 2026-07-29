@@ -40,6 +40,8 @@
         <link rel="stylesheet" href="css/themes.css" />
 
         <link rel="stylesheet" href="css/features.css" />
+
+        <link rel="stylesheet" href="css/responsive.css" />
     </head>
 
     <body>
@@ -54,16 +56,19 @@
                 <nav class="sidebar-nav">
                     <ul id="nav-links">
                         <li class="active" data-view="library">
-                            <i class="fa-solid fa-record-vinyl nav-icon"></i> Library
+                            <i class="fa-solid fa-record-vinyl nav-icon"></i><span class="nav-label">Library</span>
                         </li>
 
-                        <li data-view="playlists"><i class="fa-solid fa-list-ul nav-icon"></i> Playlists</li>
+                        <li data-view="playlists"><i class="fa-solid fa-list-ul nav-icon"></i><span class="nav-label">Playlists</span></li>
                     </ul>
                 </nav>
 
                 <div class="sidebar-footer">
+                    <button id="shortcuts-btn" class="sidebar-footer-btn" aria-label="Keyboard Shortcuts">
+                        <i class="fa-solid fa-keyboard nav-icon"></i><span class="btn-label">Shortcuts</span>
+                    </button>
                     <button id="settings-btn" class="sidebar-footer-btn" aria-label="Settings">
-                        <i class="fa-solid fa-gear nav-icon"></i> Settings
+                        <i class="fa-solid fa-gear nav-icon"></i><span class="btn-label">Settings</span>
                     </button>
                 </div>
             </aside>
@@ -295,6 +300,36 @@
 
                 <div class="modal-buttons">
                     <button id="close-settings" class="primary-btn">Done</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Keyboard Shortcuts Modal -->
+
+        <div id="shortcuts-modal" class="modal-overlay hidden">
+            <div class="modal-content shortcuts-content">
+                <h3><i class="fa-solid fa-keyboard"></i> Keyboard Shortcuts</h3>
+
+                <div class="shortcuts-list">
+                    <div class="shortcuts-row"><span>Play / Pause</span><kbd>Space</kbd></div>
+                    <div class="shortcuts-row"><span>Next Track</span><kbd>Shift</kbd><kbd>&rarr;</kbd></div>
+                    <div class="shortcuts-row"><span>Previous Track</span><kbd>Shift</kbd><kbd>&larr;</kbd></div>
+                    <div class="shortcuts-row"><span>Seek Forward 5s</span><kbd>&rarr;</kbd></div>
+                    <div class="shortcuts-row"><span>Seek Backward 5s</span><kbd>&larr;</kbd></div>
+                    <div class="shortcuts-row"><span>Volume Up</span><kbd>&uarr;</kbd></div>
+                    <div class="shortcuts-row"><span>Volume Down</span><kbd>&darr;</kbd></div>
+                    <div class="shortcuts-row"><span>Mute / Unmute</span><kbd>M</kbd></div>
+                    <div class="shortcuts-row"><span>Toggle Shuffle</span><kbd>S</kbd></div>
+                    <div class="shortcuts-row"><span>Toggle Repeat</span><kbd>R</kbd></div>
+                    <div class="shortcuts-row"><span>Toggle Queue Panel</span><kbd>Q</kbd></div>
+                    <div class="shortcuts-row"><span>Show This Menu</span><kbd>?</kbd></div>
+                    <div class="shortcuts-row"><span>Close Panels / Modals</span><kbd>Esc</kbd></div>
+                </div>
+
+                <p class="modal-message shortcuts-hint">Shortcuts are disabled while typing in a text field.</p>
+
+                <div class="modal-buttons">
+                    <button id="close-shortcuts" class="primary-btn">Got it</button>
                 </div>
             </div>
         </div>
