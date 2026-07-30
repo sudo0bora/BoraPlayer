@@ -1,56 +1,444 @@
-build-android	Build Android APK	﻿2026-07-30T21:49:04.4820919Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
-build-android	Build Android APK	2026-07-30T21:49:04.4822318Z ##[group]Run tauri-apps/tauri-action@v0.5.2
-build-android	Build Android APK	2026-07-30T21:49:04.4822602Z with:
-build-android	Build Android APK	2026-07-30T21:49:04.4822798Z   args: --target android
-build-android	Build Android APK	2026-07-30T21:49:04.4823030Z   releaseDraft: false
-build-android	Build Android APK	2026-07-30T21:49:04.4823239Z   prerelease: false
-build-android	Build Android APK	2026-07-30T21:49:04.4823438Z   projectPath: .
-build-android	Build Android APK	2026-07-30T21:49:04.4823636Z   includeDebug: false
-build-android	Build Android APK	2026-07-30T21:49:04.4823841Z   includeRelease: true
-build-android	Build Android APK	2026-07-30T21:49:04.4824058Z   includeUpdaterJson: true
-build-android	Build Android APK	2026-07-30T21:49:04.4824301Z   updaterJsonKeepUniversal: false
-build-android	Build Android APK	2026-07-30T21:49:04.4824548Z env:
-build-android	Build Android APK	2026-07-30T21:49:04.4824755Z   CARGO_HOME: /home/runner/.cargo
-build-android	Build Android APK	2026-07-30T21:49:04.4824998Z   CARGO_INCREMENTAL: 0
-build-android	Build Android APK	2026-07-30T21:49:04.4825266Z   CARGO_TERM_COLOR: always
-build-android	Build Android APK	2026-07-30T21:49:04.4825594Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
-build-android	Build Android APK	2026-07-30T21:49:04.4826082Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
-build-android	Build Android APK	2026-07-30T21:49:04.4826486Z   ANDROID_HOME: /usr/local/lib/android/sdk
-build-android	Build Android APK	2026-07-30T21:49:04.4826773Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
-build-android	Build Android APK	2026-07-30T21:49:04.4829165Z   GITHUB_TOKEN: ***
-build-android	Build Android APK	2026-07-30T21:49:04.4829379Z ##[endgroup]
-build-android	Build Android APK	2026-07-30T21:49:04.6127114Z running npm [ 'run', 'tauri', 'build', '--', '--target', 'android' ]
-build-android	Build Android APK	2026-07-30T21:49:04.7467685Z 
-build-android	Build Android APK	2026-07-30T21:49:04.7468684Z > tauri
-build-android	Build Android APK	2026-07-30T21:49:04.7469179Z > tauri build --target android
-build-android	Build Android APK	2026-07-30T21:49:04.7469430Z 
-build-android	Build Android APK	2026-07-30T21:49:04.8964791Z         Info Looking up installed tauri packages to check mismatched versions...
-build-android	Build Android APK	2026-07-30T21:49:05.3356490Z failed to build app: Target android does not exist. Please run `rustup target list` to see the available targets.
-build-android	Build Android APK	2026-07-30T21:49:05.3358090Z        Error failed to build app: Target android does not exist. Please run `rustup target list` to see the available targets.
-build-android	Build Android APK	2026-07-30T21:49:05.3514837Z ##[error]Command failed with exit code 1: npm run tauri build -- --target android
-build-ios	Build iOS App	﻿2026-07-30T21:48:44.7250910Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
-build-ios	Build iOS App	2026-07-30T21:48:44.7252030Z ##[group]Run tauri-apps/tauri-action@v0.5.2
-build-ios	Build iOS App	2026-07-30T21:48:44.7252230Z with:
-build-ios	Build iOS App	2026-07-30T21:48:44.7252370Z   args: --target ios
-build-ios	Build iOS App	2026-07-30T21:48:44.7252540Z   releaseDraft: false
-build-ios	Build iOS App	2026-07-30T21:48:44.7252720Z   prerelease: false
-build-ios	Build iOS App	2026-07-30T21:48:44.7252880Z   projectPath: .
-build-ios	Build iOS App	2026-07-30T21:48:44.7253030Z   includeDebug: false
-build-ios	Build iOS App	2026-07-30T21:48:44.7253190Z   includeRelease: true
-build-ios	Build iOS App	2026-07-30T21:48:44.7253390Z   includeUpdaterJson: true
-build-ios	Build iOS App	2026-07-30T21:48:44.7253580Z   updaterJsonKeepUniversal: false
-build-ios	Build iOS App	2026-07-30T21:48:44.7253780Z env:
-build-ios	Build iOS App	2026-07-30T21:48:44.7253930Z   CARGO_HOME: /Users/runner/.cargo
-build-ios	Build iOS App	2026-07-30T21:48:44.7254410Z   CARGO_INCREMENTAL: 0
-build-ios	Build iOS App	2026-07-30T21:48:44.7254580Z   CARGO_TERM_COLOR: always
-build-ios	Build iOS App	2026-07-30T21:48:44.7256990Z   GITHUB_TOKEN: ***
-build-ios	Build iOS App	2026-07-30T21:48:44.7257160Z ##[endgroup]
-build-ios	Build iOS App	2026-07-30T21:48:44.9405460Z running npm [ 'run', 'tauri', 'build', '--', '--target', 'ios' ]
-build-ios	Build iOS App	2026-07-30T21:48:45.0577680Z 
-build-ios	Build iOS App	2026-07-30T21:48:45.0648670Z > tauri
-build-ios	Build iOS App	2026-07-30T21:48:45.0749540Z > tauri build --target ios
-build-ios	Build iOS App	2026-07-30T21:48:45.0850170Z 
-build-ios	Build iOS App	2026-07-30T21:48:45.3046490Z         Info Looking up installed tauri packages to check mismatched versions...
-build-ios	Build iOS App	2026-07-30T21:48:45.7823450Z failed to build app: Target ios does not exist. Please run `rustup target list` to see the available targets.
-build-ios	Build iOS App	2026-07-30T21:48:45.7840920Z ##[error]Command failed with exit code 1: npm run tauri build -- --target ios
-build-ios	Build iOS App	2026-07-30T21:48:45.7846680Z        Error failed to build app: Target ios does not exist. Please run `rustup target list` to see the available targets.
+build-android	Build Android APK	﻿2026-07-30T21:59:41.5415523Z ##[warning]Unexpected input(s) 'mobile', valid inputs are ['releaseId', 'tagName', 'releaseName', 'releaseBody', 'releaseDraft', 'prerelease', 'releaseCommitish', 'projectPath', 'distPath', 'iconPath', 'appName', 'appVersion', 'includeDebug', 'includeRelease', 'includeUpdaterJson', 'updaterJsonPreferNsis', 'updaterJsonKeepUniversal', 'tauriScript', 'args', 'bundleIdentifier', 'owner', 'repo']
+build-android	Build Android APK	2026-07-30T21:59:41.5430174Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build-android	Build Android APK	2026-07-30T21:59:41.5431448Z ##[group]Run tauri-apps/tauri-action@v0.5.2
+build-android	Build Android APK	2026-07-30T21:59:41.5431981Z with:
+build-android	Build Android APK	2026-07-30T21:59:41.5432293Z   mobile: android
+build-android	Build Android APK	2026-07-30T21:59:41.5432516Z   releaseDraft: false
+build-android	Build Android APK	2026-07-30T21:59:41.5432724Z   prerelease: false
+build-android	Build Android APK	2026-07-30T21:59:41.5432949Z   projectPath: .
+build-android	Build Android APK	2026-07-30T21:59:41.5433146Z   includeDebug: false
+build-android	Build Android APK	2026-07-30T21:59:41.5433352Z   includeRelease: true
+build-android	Build Android APK	2026-07-30T21:59:41.5433569Z   includeUpdaterJson: true
+build-android	Build Android APK	2026-07-30T21:59:41.5433811Z   updaterJsonKeepUniversal: false
+build-android	Build Android APK	2026-07-30T21:59:41.5434049Z env:
+build-android	Build Android APK	2026-07-30T21:59:41.5434229Z   CARGO_HOME: /home/runner/.cargo
+build-android	Build Android APK	2026-07-30T21:59:41.5434463Z   CARGO_INCREMENTAL: 0
+build-android	Build Android APK	2026-07-30T21:59:41.5434666Z   CARGO_TERM_COLOR: always
+build-android	Build Android APK	2026-07-30T21:59:41.5434986Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build-android	Build Android APK	2026-07-30T21:59:41.5435464Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build-android	Build Android APK	2026-07-30T21:59:41.5435854Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build-android	Build Android APK	2026-07-30T21:59:41.5436140Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build-android	Build Android APK	2026-07-30T21:59:41.5439180Z   GITHUB_TOKEN: ***
+build-android	Build Android APK	2026-07-30T21:59:41.5439403Z ##[endgroup]
+build-android	Build Android APK	2026-07-30T21:59:41.6631377Z running npm [ 'run', 'tauri', 'build' ]
+build-android	Build Android APK	2026-07-30T21:59:41.8022110Z 
+build-android	Build Android APK	2026-07-30T21:59:41.8023053Z > tauri
+build-android	Build Android APK	2026-07-30T21:59:41.8023680Z > tauri build
+build-android	Build Android APK	2026-07-30T21:59:41.8023967Z 
+build-android	Build Android APK	2026-07-30T21:59:41.9494139Z         Info Looking up installed tauri packages to check mismatched versions...
+build-android	Build Android APK	2026-07-30T21:59:42.4094476Z [1m[92m    Updating[0m crates.io index
+build-android	Build Android APK	2026-07-30T21:59:43.1165215Z [1m[92m     Locking[0m 425 packages to latest compatible versions
+build-android	Build Android APK	2026-07-30T21:59:43.1251143Z [1m[92m      Adding[0m generic-array v0.14.7 [1m[33m(available: v0.14.9)[0m
+build-android	Build Android APK	2026-07-30T21:59:43.1677140Z [1m[92m      Adding[0m toml v0.8.2 [1m[33m(available: v0.8.23)[0m
+build-android	Build Android APK	2026-07-30T21:59:43.1685675Z [1m[92m      Adding[0m toml_datetime v0.6.3 [1m[33m(available: v0.6.11)[0m
+build-android	Build Android APK	2026-07-30T21:59:43.1695721Z [1m[92m      Adding[0m toml_edit v0.20.2 [1m[33m(available: v0.20.7)[0m
+build-android	Build Android APK	2026-07-30T21:59:43.2024389Z [1m[92m Downloading[0m crates ...
+build-android	Build Android APK	2026-07-30T21:59:43.2821491Z [1m[92m  Downloaded[0m adler2 v2.0.1
+build-android	Build Android APK	2026-07-30T21:59:43.2921724Z [1m[92m  Downloaded[0m jsonptr v0.6.3
+build-android	Build Android APK	2026-07-30T21:59:43.2950084Z [1m[92m  Downloaded[0m keyboard-types v0.7.0
+build-android	Build Android APK	2026-07-30T21:59:43.2969745Z [1m[92m  Downloaded[0m libappindicator v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:43.2998172Z [1m[92m  Downloaded[0m json-patch v3.0.1
+build-android	Build Android APK	2026-07-30T21:59:43.3026285Z [1m[92m  Downloaded[0m phf v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:43.3041230Z [1m[92m  Downloaded[0m phf_shared v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:43.3054668Z [1m[92m  Downloaded[0m phf_generator v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:43.3068172Z [1m[92m  Downloaded[0m phf_codegen v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:43.3079318Z [1m[92m  Downloaded[0m schemars v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:43.3276826Z [1m[92m  Downloaded[0m socket2 v0.6.5
+build-android	Build Android APK	2026-07-30T21:59:43.3308632Z [1m[92m  Downloaded[0m serde_core v1.0.229
+build-android	Build Android APK	2026-07-30T21:59:43.3352190Z [1m[92m  Downloaded[0m percent-encoding v2.3.2
+build-android	Build Android APK	2026-07-30T21:59:43.3364230Z [1m[92m  Downloaded[0m serialize-to-javascript v0.1.2
+build-android	Build Android APK	2026-07-30T21:59:43.3380511Z [1m[92m  Downloaded[0m soup3 v0.5.0
+build-android	Build Android APK	2026-07-30T21:59:43.3445200Z [1m[92m  Downloaded[0m memoffset v0.9.1
+build-android	Build Android APK	2026-07-30T21:59:43.3462639Z [1m[92m  Downloaded[0m phf_macros v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:43.3479208Z [1m[92m  Downloaded[0m schemars v0.8.22
+build-android	Build Android APK	2026-07-30T21:59:43.3692937Z [1m[92m  Downloaded[0m shlex v2.0.1
+build-android	Build Android APK	2026-07-30T21:59:43.3716023Z [1m[92m  Downloaded[0m synstructure v0.13.2
+build-android	Build Android APK	2026-07-30T21:59:43.3729695Z [1m[92m  Downloaded[0m cssparser-macros v0.6.1
+build-android	Build Android APK	2026-07-30T21:59:43.3736710Z [1m[92m  Downloaded[0m ctor v0.8.0
+build-android	Build Android APK	2026-07-30T21:59:43.3748598Z [1m[92m  Downloaded[0m ctor-proc-macro v0.0.7
+build-android	Build Android APK	2026-07-30T21:59:43.3757071Z [1m[92m  Downloaded[0m new_debug_unreachable v1.0.6
+build-android	Build Android APK	2026-07-30T21:59:43.3768281Z [1m[92m  Downloaded[0m serde_json v1.0.151
+build-android	Build Android APK	2026-07-30T21:59:43.3848346Z [1m[92m  Downloaded[0m serde_with_macros v3.21.0
+build-android	Build Android APK	2026-07-30T21:59:43.3869190Z [1m[92m  Downloaded[0m once_cell v1.21.4
+build-android	Build Android APK	2026-07-30T21:59:43.3897128Z [1m[92m  Downloaded[0m serde_derive_internals v0.29.1
+build-android	Build Android APK	2026-07-30T21:59:43.3912274Z [1m[92m  Downloaded[0m soup3-sys v0.5.0
+build-android	Build Android APK	2026-07-30T21:59:43.3927079Z [1m[92m  Downloaded[0m stable_deref_trait v1.2.1
+build-android	Build Android APK	2026-07-30T21:59:43.3936390Z [1m[92m  Downloaded[0m system-deps v6.2.2
+build-android	Build Android APK	2026-07-30T21:59:43.3959275Z [1m[92m  Downloaded[0m simd-adler32 v0.3.10
+build-android	Build Android APK	2026-07-30T21:59:43.3983300Z [1m[92m  Downloaded[0m mime v0.3.17
+build-android	Build Android APK	2026-07-30T21:59:43.3997026Z [1m[92m  Downloaded[0m option-ext v0.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.4006218Z [1m[92m  Downloaded[0m proc-macro-error-attr v1.0.4
+build-android	Build Android APK	2026-07-30T21:59:43.4016498Z [1m[92m  Downloaded[0m ref-cast-impl v1.0.26
+build-android	Build Android APK	2026-07-30T21:59:43.4025050Z [1m[92m  Downloaded[0m scopeguard v1.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.4037710Z [1m[92m  Downloaded[0m selectors v0.36.1
+build-android	Build Android APK	2026-07-30T21:59:43.4062598Z [1m[92m  Downloaded[0m serde_spanned v0.6.9
+build-android	Build Android APK	2026-07-30T21:59:43.4073778Z [1m[92m  Downloaded[0m slab v0.4.12
+build-android	Build Android APK	2026-07-30T21:59:43.4087536Z [1m[92m  Downloaded[0m string_cache v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:43.4104031Z [1m[92m  Downloaded[0m syn v3.0.3
+build-android	Build Android APK	2026-07-30T21:59:43.4219223Z [1m[92m  Downloaded[0m unic-ucd-version v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:43.4229077Z [1m[92m  Downloaded[0m dirs-sys v0.5.0
+build-android	Build Android APK	2026-07-30T21:59:43.4240933Z [1m[92m  Downloaded[0m dtoa-short v0.3.5
+build-android	Build Android APK	2026-07-30T21:59:43.4249161Z [1m[92m  Downloaded[0m javascriptcore-rs-sys v1.1.1
+build-android	Build Android APK	2026-07-30T21:59:43.4261849Z [1m[92m  Downloaded[0m dirs v6.0.0
+build-android	Build Android APK	2026-07-30T21:59:43.4275901Z [1m[92m  Downloaded[0m dtor-proc-macro v0.0.6
+build-android	Build Android APK	2026-07-30T21:59:43.4284630Z [1m[92m  Downloaded[0m gtk3-macros v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:43.4293740Z [1m[92m  Downloaded[0m futures-macro v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:43.4304672Z [1m[92m  Downloaded[0m itoa v1.0.18
+build-android	Build Android APK	2026-07-30T21:59:43.4319801Z [1m[92m  Downloaded[0m lock_api v0.4.14
+build-android	Build Android APK	2026-07-30T21:59:43.4333421Z [1m[92m  Downloaded[0m num_threads v0.1.7
+build-android	Build Android APK	2026-07-30T21:59:43.4344581Z [1m[92m  Downloaded[0m serialize-to-javascript-impl v0.1.2
+build-android	Build Android APK	2026-07-30T21:59:43.4351739Z [1m[92m  Downloaded[0m digest v0.10.7
+build-android	Build Android APK	2026-07-30T21:59:43.4371211Z [1m[92m  Downloaded[0m displaydoc v0.2.7
+build-android	Build Android APK	2026-07-30T21:59:43.4394352Z [1m[92m  Downloaded[0m dtor v0.3.0
+build-android	Build Android APK	2026-07-30T21:59:43.4406388Z [1m[92m  Downloaded[0m embed-resource v3.0.11
+build-android	Build Android APK	2026-07-30T21:59:43.4425208Z [1m[92m  Downloaded[0m dlopen2 v0.8.2
+build-android	Build Android APK	2026-07-30T21:59:43.4461047Z [1m[92m  Downloaded[0m dyn-clone v1.0.20
+build-android	Build Android APK	2026-07-30T21:59:43.4479313Z [1m[92m  Downloaded[0m fastrand v2.5.0
+build-android	Build Android APK	2026-07-30T21:59:43.4494079Z [1m[92m  Downloaded[0m futures-core v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:43.4508678Z [1m[92m  Downloaded[0m darling v0.23.0
+build-android	Build Android APK	2026-07-30T21:59:43.4568310Z [1m[92m  Downloaded[0m tauri-macros v2.6.3
+build-android	Build Android APK	2026-07-30T21:59:43.4585090Z [1m[92m  Downloaded[0m deranged v0.5.8
+build-android	Build Android APK	2026-07-30T21:59:43.4599827Z [1m[92m  Downloaded[0m dlopen2_derive v0.4.3
+build-android	Build Android APK	2026-07-30T21:59:43.4609748Z [1m[92m  Downloaded[0m dtoa v1.0.11
+build-android	Build Android APK	2026-07-30T21:59:43.4626405Z [1m[92m  Downloaded[0m equivalent v1.0.2
+build-android	Build Android APK	2026-07-30T21:59:43.4637291Z [1m[92m  Downloaded[0m erased-serde v0.4.10
+build-android	Build Android APK	2026-07-30T21:59:43.4663368Z [1m[92m  Downloaded[0m fdeflate v0.3.7
+build-android	Build Android APK	2026-07-30T21:59:43.4680499Z [1m[92m  Downloaded[0m darling_core v0.23.0
+build-android	Build Android APK	2026-07-30T21:59:43.4740835Z [1m[92m  Downloaded[0m dbus v0.9.12
+build-android	Build Android APK	2026-07-30T21:59:43.4786667Z [1m[92m  Downloaded[0m derive_more v2.1.1
+build-android	Build Android APK	2026-07-30T21:59:43.4929558Z [1m[92m  Downloaded[0m dunce v1.0.5
+build-android	Build Android APK	2026-07-30T21:59:43.4939140Z [1m[92m  Downloaded[0m markup5ever v0.38.0
+build-android	Build Android APK	2026-07-30T21:59:43.4950728Z [1m[92m  Downloaded[0m smallvec v1.15.2
+build-android	Build Android APK	2026-07-30T21:59:43.4966578Z [1m[92m  Downloaded[0m derive_more-impl v2.1.1
+build-android	Build Android APK	2026-07-30T21:59:43.5023911Z [1m[92m  Downloaded[0m dpi v0.1.2
+build-android	Build Android APK	2026-07-30T21:59:43.5034817Z [1m[92m  Downloaded[0m powerfmt v0.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.5046545Z [1m[92m  Downloaded[0m sha2 v0.10.9
+build-android	Build Android APK	2026-07-30T21:59:43.5074098Z [1m[92m  Downloaded[0m siphasher v1.0.3
+build-android	Build Android APK	2026-07-30T21:59:43.5088546Z [1m[92m  Downloaded[0m dom_query v0.27.0
+build-android	Build Android APK	2026-07-30T21:59:43.5141711Z [1m[92m  Downloaded[0m fern v0.7.1
+build-android	Build Android APK	2026-07-30T21:59:43.5188435Z [1m[92m  Downloaded[0m futures-task v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:43.5200992Z [1m[92m  Downloaded[0m gdk-pixbuf v0.18.5
+build-android	Build Android APK	2026-07-30T21:59:43.5225284Z [1m[92m  Downloaded[0m gdk-pixbuf-sys v0.18.0
+build-android	Build Android APK	2026-07-30T21:59:43.5238474Z [1m[92m  Downloaded[0m gdk-sys v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:43.5260645Z [1m[92m  Downloaded[0m getrandom v0.4.3
+build-android	Build Android APK	2026-07-30T21:59:43.5301041Z [1m[92m  Downloaded[0m icu_normalizer v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.5340931Z [1m[92m  Downloaded[0m idna v1.1.0
+build-android	Build Android APK	2026-07-30T21:59:43.5379161Z [1m[92m  Downloaded[0m infer v0.19.0
+build-android	Build Android APK	2026-07-30T21:59:43.5401524Z [1m[92m  Downloaded[0m num-conv v0.2.2
+build-android	Build Android APK	2026-07-30T21:59:43.5410776Z [1m[92m  Downloaded[0m pin-project-lite v0.2.17
+build-android	Build Android APK	2026-07-30T21:59:43.5474912Z [1m[92m  Downloaded[0m potential_utf v0.1.5
+build-android	Build Android APK	2026-07-30T21:59:43.5486066Z [1m[92m  Downloaded[0m precomputed-hash v0.1.1
+build-android	Build Android APK	2026-07-30T21:59:43.5492953Z [1m[92m  Downloaded[0m proc-macro-crate v1.3.1
+build-android	Build Android APK	2026-07-30T21:59:43.5504471Z [1m[92m  Downloaded[0m ref-cast v1.0.26
+build-android	Build Android APK	2026-07-30T21:59:43.5536441Z [1m[92m  Downloaded[0m serde-untagged v0.1.9
+build-android	Build Android APK	2026-07-30T21:59:43.5553981Z [1m[92m  Downloaded[0m serde_repr v0.1.21
+build-android	Build Android APK	2026-07-30T21:59:43.5575825Z [1m[92m  Downloaded[0m serde_spanned v1.1.1
+build-android	Build Android APK	2026-07-30T21:59:43.5587920Z [1m[92m  Downloaded[0m string_cache_codegen v0.6.1
+build-android	Build Android APK	2026-07-30T21:59:43.5595279Z [1m[92m  Downloaded[0m strsim v0.11.1
+build-android	Build Android APK	2026-07-30T21:59:43.5608841Z [1m[92m  Downloaded[0m tauri v2.11.5
+build-android	Build Android APK	2026-07-30T21:59:43.5771872Z [1m[92m  Downloaded[0m tauri-plugin-log v2.9.0
+build-android	Build Android APK	2026-07-30T21:59:43.5804206Z [1m[92m  Downloaded[0m unic-char-property v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:43.5817434Z [1m[92m  Downloaded[0m field-offset v0.3.6
+build-android	Build Android APK	2026-07-30T21:59:43.5829595Z [1m[92m  Downloaded[0m glib-sys v0.18.1
+build-android	Build Android APK	2026-07-30T21:59:43.5851123Z [1m[92m  Downloaded[0m indexmap v2.14.0
+build-android	Build Android APK	2026-07-30T21:59:43.5897325Z [1m[92m  Downloaded[0m libappindicator-sys v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:43.5905134Z [1m[92m  Downloaded[0m pango-sys v0.18.0
+build-android	Build Android APK	2026-07-30T21:59:43.5920516Z [1m[92m  Downloaded[0m proc-macro-crate v2.0.2
+build-android	Build Android APK	2026-07-30T21:59:43.5934179Z [1m[92m  Downloaded[0m quote v1.0.47
+build-android	Build Android APK	2026-07-30T21:59:43.5963546Z [1m[92m  Downloaded[0m rustc-hash v2.1.3
+build-android	Build Android APK	2026-07-30T21:59:43.5977618Z [1m[92m  Downloaded[0m same-file v1.0.6
+build-android	Build Android APK	2026-07-30T21:59:43.5992016Z [1m[92m  Downloaded[0m target-lexicon v0.12.16
+build-android	Build Android APK	2026-07-30T21:59:43.6014273Z [1m[92m  Downloaded[0m time-core v0.1.9
+build-android	Build Android APK	2026-07-30T21:59:43.6025649Z [1m[92m  Downloaded[0m toml_datetime v0.6.3
+build-android	Build Android APK	2026-07-30T21:59:43.6035676Z [1m[92m  Downloaded[0m brotli-decompressor v5.0.3
+build-android	Build Android APK	2026-07-30T21:59:43.6097864Z [1m[92m  Downloaded[0m futures-executor v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:43.6112420Z [1m[92m  Downloaded[0m version_check v0.9.5
+build-android	Build Android APK	2026-07-30T21:59:43.6126983Z [1m[92m  Downloaded[0m zerofrom-derive v0.1.7
+build-android	Build Android APK	2026-07-30T21:59:43.6138031Z [1m[92m  Downloaded[0m cairo-sys-rs v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:43.6148483Z [1m[92m  Downloaded[0m cargo-platform v0.1.9
+build-android	Build Android APK	2026-07-30T21:59:43.6161115Z [1m[92m  Downloaded[0m darling_macro v0.23.0
+build-android	Build Android APK	2026-07-30T21:59:43.6168989Z [1m[92m  Downloaded[0m raw-window-handle v0.6.2
+build-android	Build Android APK	2026-07-30T21:59:43.6188195Z [1m[92m  Downloaded[0m rustc_version v0.4.1
+build-android	Build Android APK	2026-07-30T21:59:43.6201985Z [1m[92m  Downloaded[0m schemars_derive v0.8.22
+build-android	Build Android APK	2026-07-30T21:59:43.6218444Z [1m[92m  Downloaded[0m servo_arc v0.4.3
+build-android	Build Android APK	2026-07-30T21:59:43.6227347Z [1m[92m  Downloaded[0m thiserror v1.0.69
+build-android	Build Android APK	2026-07-30T21:59:43.6288848Z [1m[92m  Downloaded[0m walkdir v2.5.0
+build-android	Build Android APK	2026-07-30T21:59:43.6308417Z [1m[92m  Downloaded[0m writeable v0.6.3
+build-android	Build Android APK	2026-07-30T21:59:43.6329281Z [1m[92m  Downloaded[0m zerofrom v0.1.8
+build-android	Build Android APK	2026-07-30T21:59:43.6339487Z [1m[92m  Downloaded[0m alloc-stdlib v0.2.4
+build-android	Build Android APK	2026-07-30T21:59:43.6352074Z [1m[92m  Downloaded[0m atk-sys v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:43.6367052Z [1m[92m  Downloaded[0m cfg-if v1.0.4
+build-android	Build Android APK	2026-07-30T21:59:43.6381135Z [1m[92m  Downloaded[0m find-msvc-tools v0.1.9
+build-android	Build Android APK	2026-07-30T21:59:43.6398324Z [1m[92m  Downloaded[0m futures-channel v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:43.6418547Z [1m[92m  Downloaded[0m getrandom v0.3.4
+build-android	Build Android APK	2026-07-30T21:59:43.6455903Z [1m[92m  Downloaded[0m gobject-sys v0.18.0
+build-android	Build Android APK	2026-07-30T21:59:43.6470920Z [1m[92m  Downloaded[0m icu_properties v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.6495779Z [1m[92m  Downloaded[0m libloading v0.7.4
+build-android	Build Android APK	2026-07-30T21:59:43.6519957Z [1m[92m  Downloaded[0m litemap v0.8.2
+build-android	Build Android APK	2026-07-30T21:59:43.6545869Z [1m[92m  Downloaded[0m mio v1.2.2
+build-android	Build Android APK	2026-07-30T21:59:43.6612293Z [1m[92m  Downloaded[0m num-traits v0.2.19
+build-android	Build Android APK	2026-07-30T21:59:43.6639906Z [1m[92m  Downloaded[0m pango v0.18.3
+build-android	Build Android APK	2026-07-30T21:59:43.6689998Z [1m[92m  Downloaded[0m parking_lot v0.12.5
+build-android	Build Android APK	2026-07-30T21:59:43.6716841Z [1m[92m  Downloaded[0m parking_lot_core v0.9.12
+build-android	Build Android APK	2026-07-30T21:59:43.6739174Z [1m[92m  Downloaded[0m pkg-config v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:43.6756220Z [1m[92m  Downloaded[0m proc-macro-error v1.0.4
+build-android	Build Android APK	2026-07-30T21:59:43.6794072Z [1m[92m  Downloaded[0m semver v1.0.28
+build-android	Build Android APK	2026-07-30T21:59:43.6819148Z [1m[92m  Downloaded[0m serde_derive v1.0.229
+build-android	Build Android APK	2026-07-30T21:59:43.6851899Z [1m[92m  Downloaded[0m tauri-winres v0.3.6
+build-android	Build Android APK	2026-07-30T21:59:43.6870520Z [1m[92m  Downloaded[0m thiserror v2.0.19
+build-android	Build Android APK	2026-07-30T21:59:43.6940762Z [1m[92m  Downloaded[0m thiserror-impl v1.0.69
+build-android	Build Android APK	2026-07-30T21:59:43.6954869Z [1m[92m  Downloaded[0m thiserror-impl v2.0.19
+build-android	Build Android APK	2026-07-30T21:59:43.6970088Z [1m[92m  Downloaded[0m time-macros v0.2.32
+build-android	Build Android APK	2026-07-30T21:59:43.6996408Z [1m[92m  Downloaded[0m tinystr v0.8.3
+build-android	Build Android APK	2026-07-30T21:59:43.7018010Z [1m[92m  Downloaded[0m toml_edit v0.19.15
+build-android	Build Android APK	2026-07-30T21:59:43.7237371Z [1m[92m  Downloaded[0m urlpattern v0.3.0
+build-android	Build Android APK	2026-07-30T21:59:43.7256989Z [1m[92m  Downloaded[0m yoke-derive v0.8.2
+build-android	Build Android APK	2026-07-30T21:59:43.7269034Z [1m[92m  Downloaded[0m zerovec-derive v0.11.3
+build-android	Build Android APK	2026-07-30T21:59:43.7285500Z [1m[92m  Downloaded[0m zmij v1.0.23
+build-android	Build Android APK	2026-07-30T21:59:43.7304625Z [1m[92m  Downloaded[0m alloc-no-stdlib v2.0.4
+build-android	Build Android APK	2026-07-30T21:59:43.7322208Z [1m[92m  Downloaded[0m atk v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:43.7360436Z [1m[92m  Downloaded[0m autocfg v1.5.1
+build-android	Build Android APK	2026-07-30T21:59:43.7380086Z [1m[92m  Downloaded[0m bit-set v0.8.0
+build-android	Build Android APK	2026-07-30T21:59:43.7394050Z [1m[92m  Downloaded[0m bit-vec v0.8.0
+build-android	Build Android APK	2026-07-30T21:59:43.7410732Z [1m[92m  Downloaded[0m cargo_metadata v0.19.2
+build-android	Build Android APK	2026-07-30T21:59:43.7430288Z [1m[92m  Downloaded[0m cc v1.4.0
+build-android	Build Android APK	2026-07-30T21:59:43.7462012Z [1m[92m  Downloaded[0m generic-array v0.14.7
+build-android	Build Android APK	2026-07-30T21:59:43.7476833Z [1m[92m  Downloaded[0m heck v0.5.0
+build-android	Build Android APK	2026-07-30T21:59:43.7490460Z [1m[92m  Downloaded[0m html5ever v0.38.0
+build-android	Build Android APK	2026-07-30T21:59:43.7529216Z [1m[92m  Downloaded[0m iana-time-zone v0.1.65
+build-android	Build Android APK	2026-07-30T21:59:43.7559669Z [1m[92m  Downloaded[0m log v0.4.33
+build-android	Build Android APK	2026-07-30T21:59:43.7586251Z [1m[92m  Downloaded[0m miniz_oxide v0.8.9
+build-android	Build Android APK	2026-07-30T21:59:43.7612592Z [1m[92m  Downloaded[0m plist v1.10.0
+build-android	Build Android APK	2026-07-30T21:59:43.7656673Z [1m[92m  Downloaded[0m schemars v1.2.2
+build-android	Build Android APK	2026-07-30T21:59:43.7845959Z [1m[92m  Downloaded[0m tinyvec v1.12.0
+build-android	Build Android APK	2026-07-30T21:59:43.7874056Z [1m[92m  Downloaded[0m toml v1.1.4+spec-1.1.0
+build-android	Build Android APK	2026-07-30T21:59:43.7917783Z [1m[92m  Downloaded[0m yoke v0.8.3
+build-android	Build Android APK	2026-07-30T21:59:43.7936882Z [1m[92m  Downloaded[0m camino v1.2.5
+build-android	Build Android APK	2026-07-30T21:59:43.7954331Z [1m[92m  Downloaded[0m cfg-expr v0.15.8
+build-android	Build Android APK	2026-07-30T21:59:43.7986133Z [1m[92m  Downloaded[0m proc-macro2 v1.0.107
+build-android	Build Android APK	2026-07-30T21:59:43.8017980Z [1m[92m  Downloaded[0m toml_datetime v0.7.5+spec-1.1.0
+build-android	Build Android APK	2026-07-30T21:59:43.8030856Z [1m[92m  Downloaded[0m toml_datetime v1.1.1+spec-1.1.0
+build-android	Build Android APK	2026-07-30T21:59:43.8043839Z [1m[92m  Downloaded[0m x11-dl v2.21.0
+build-android	Build Android APK	2026-07-30T21:59:43.8077466Z [1m[92m  Downloaded[0m anyhow v1.0.104
+build-android	Build Android APK	2026-07-30T21:59:43.8121275Z [1m[92m  Downloaded[0m base64 v0.22.1
+build-android	Build Android APK	2026-07-30T21:59:43.8162136Z [1m[92m  Downloaded[0m cfb v0.7.3
+build-android	Build Android APK	2026-07-30T21:59:43.8201670Z [1m[92m  Downloaded[0m memchr v2.8.3
+build-android	Build Android APK	2026-07-30T21:59:43.8261780Z [1m[92m  Downloaded[0m muda v0.19.3
+build-android	Build Android APK	2026-07-30T21:59:43.8304405Z [1m[92m  Downloaded[0m serde v1.0.229
+build-android	Build Android APK	2026-07-30T21:59:43.8341865Z [1m[92m  Downloaded[0m zerotrie v0.2.4
+build-android	Build Android APK	2026-07-30T21:59:43.8384087Z [1m[92m  Downloaded[0m png v0.17.16
+build-android	Build Android APK	2026-07-30T21:59:43.8425598Z [1m[92m  Downloaded[0m form_urlencoded v1.2.2
+build-android	Build Android APK	2026-07-30T21:59:43.8434204Z [1m[92m  Downloaded[0m hex v0.4.3
+build-android	Build Android APK	2026-07-30T21:59:43.8450781Z [1m[92m  Downloaded[0m png v0.18.1
+build-android	Build Android APK	2026-07-30T21:59:43.8494916Z [1m[92m  Downloaded[0m gio v0.18.4
+build-android	Build Android APK	2026-07-30T21:59:43.8674642Z [1m[92m  Downloaded[0m javascriptcore-rs v1.1.2
+build-android	Build Android APK	2026-07-30T21:59:43.8702994Z [1m[92m  Downloaded[0m zerovec v0.11.6
+build-android	Build Android APK	2026-07-30T21:59:43.8767963Z [1m[92m  Downloaded[0m aho-corasick v1.1.4
+build-android	Build Android APK	2026-07-30T21:59:43.8824032Z [1m[92m  Downloaded[0m regex v1.13.1
+build-android	Build Android APK	2026-07-30T21:59:43.8881013Z [1m[92m  Downloaded[0m tendril v0.5.1
+build-android	Build Android APK	2026-07-30T21:59:43.8901423Z [1m[92m  Downloaded[0m winnow v1.0.4
+build-android	Build Android APK	2026-07-30T21:59:43.9007716Z [1m[92m  Downloaded[0m futures-io v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:43.9017078Z [1m[92m  Downloaded[0m futures-sink v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:43.9026046Z [1m[92m  Downloaded[0m heck v0.4.1
+build-android	Build Android APK	2026-07-30T21:59:43.9039891Z [1m[92m  Downloaded[0m icu_provider v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.9067864Z [1m[92m  Downloaded[0m quick-xml v0.41.0
+build-android	Build Android APK	2026-07-30T21:59:43.9131419Z [1m[92m  Downloaded[0m serde_with v3.21.0
+build-android	Build Android APK	2026-07-30T21:59:43.9272779Z [1m[92m  Downloaded[0m syn v1.0.109
+build-android	Build Android APK	2026-07-30T21:59:43.9374701Z [1m[92m  Downloaded[0m tao v0.35.3
+build-android	Build Android APK	2026-07-30T21:59:43.9493357Z [1m[92m  Downloaded[0m foldhash v0.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.9506558Z [1m[92m  Downloaded[0m gdkwayland-sys v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:43.9513424Z [1m[92m  Downloaded[0m gdkx11 v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:43.9534780Z [1m[92m  Downloaded[0m gio-sys v0.18.1
+build-android	Build Android APK	2026-07-30T21:59:43.9561589Z [1m[92m  Downloaded[0m gtk-sys v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:43.9597927Z [1m[92m  Downloaded[0m hashbrown v0.12.3
+build-android	Build Android APK	2026-07-30T21:59:43.9637902Z [1m[92m  Downloaded[0m ico v0.5.0
+build-android	Build Android APK	2026-07-30T21:59:43.9669825Z [1m[92m  Downloaded[0m icu_locale_core v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.9745852Z [1m[92m  Downloaded[0m icu_normalizer_data v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:43.9768352Z [1m[92m  Downloaded[0m syn v2.0.119
+build-android	Build Android APK	2026-07-30T21:59:43.9882738Z [1m[92m  Downloaded[0m tauri-codegen v2.6.3
+build-android	Build Android APK	2026-07-30T21:59:43.9898913Z [1m[92m  Downloaded[0m tauri-runtime v2.11.3
+build-android	Build Android APK	2026-07-30T21:59:43.9916040Z [1m[92m  Downloaded[0m tauri-utils v2.9.3
+build-android	Build Android APK	2026-07-30T21:59:43.9961791Z [1m[92m  Downloaded[0m time v0.3.54
+build-android	Build Android APK	2026-07-30T21:59:44.0120649Z [1m[92m  Downloaded[0m flate2 v1.1.9
+build-android	Build Android APK	2026-07-30T21:59:44.0174141Z [1m[92m  Downloaded[0m glob v0.3.4
+build-android	Build Android APK	2026-07-30T21:59:44.0189996Z [1m[92m  Downloaded[0m http v1.5.0
+build-android	Build Android APK	2026-07-30T21:59:44.0229532Z [1m[92m  Downloaded[0m icu_properties_data v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:44.0345511Z [1m[92m  Downloaded[0m idna_adapter v1.2.2
+build-android	Build Android APK	2026-07-30T21:59:44.0354942Z [1m[92m  Downloaded[0m regex-syntax v0.8.11
+build-android	Build Android APK	2026-07-30T21:59:44.0427508Z [1m[92m  Downloaded[0m tauri-runtime-wry v2.11.4
+build-android	Build Android APK	2026-07-30T21:59:44.0455201Z [1m[92m  Downloaded[0m web_atoms v0.2.5
+build-android	Build Android APK	2026-07-30T21:59:44.0466745Z [1m[92m  Downloaded[0m gdk v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:44.0531081Z [1m[92m  Downloaded[0m gdkx11-sys v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:44.0541036Z [1m[92m  Downloaded[0m icu_collections v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:44.0608921Z [1m[92m  Downloaded[0m toml_edit v0.20.2
+build-android	Build Android APK	2026-07-30T21:59:44.0833887Z [1m[92m  Downloaded[0m unic-ucd-ident v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:44.0851357Z [1m[92m  Downloaded[0m utf8_iter v1.0.4
+build-android	Build Android APK	2026-07-30T21:59:44.0862345Z [1m[92m  Downloaded[0m uuid v1.24.0
+build-android	Build Android APK	2026-07-30T21:59:44.0893144Z [1m[92m  Downloaded[0m webkit2gtk-sys v2.0.2
+build-android	Build Android APK	2026-07-30T21:59:44.0907286Z [1m[92m  Downloaded[0m block-buffer v0.10.4
+build-android	Build Android APK	2026-07-30T21:59:44.0933337Z [1m[92m  Downloaded[0m cookie v0.18.1
+build-android	Build Android APK	2026-07-30T21:59:44.0949409Z [1m[92m  Downloaded[0m fnv v1.0.7
+build-android	Build Android APK	2026-07-30T21:59:44.0959290Z [1m[92m  Downloaded[0m futures-util v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:44.1105518Z [1m[92m  Downloaded[0m glib-macros v0.18.5
+build-android	Build Android APK	2026-07-30T21:59:44.1135468Z [1m[92m  Downloaded[0m gtk v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:44.1409680Z [1m[92m  Downloaded[0m tauri-plugin v2.6.3
+build-android	Build Android APK	2026-07-30T21:59:44.1421821Z [1m[92m  Downloaded[0m tray-icon v0.24.2
+build-android	Build Android APK	2026-07-30T21:59:44.1447925Z [1m[92m  Downloaded[0m unic-char-range v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:44.1463599Z [1m[92m  Downloaded[0m crypto-common v0.1.7
+build-android	Build Android APK	2026-07-30T21:59:44.1473329Z [1m[92m  Downloaded[0m glib v0.18.5
+build-android	Build Android APK	2026-07-30T21:59:44.1588559Z [1m[92m  Downloaded[0m ident_case v1.0.1
+build-android	Build Android APK	2026-07-30T21:59:44.1597980Z [1m[92m  Downloaded[0m tauri-build v2.6.3
+build-android	Build Android APK	2026-07-30T21:59:44.1615811Z [1m[92m  Downloaded[0m cpufeatures v0.2.17
+build-android	Build Android APK	2026-07-30T21:59:44.1630854Z [1m[92m  Downloaded[0m byteorder v1.5.0
+build-android	Build Android APK	2026-07-30T21:59:44.1648336Z [1m[92m  Downloaded[0m crossbeam-utils v0.8.22
+build-android	Build Android APK	2026-07-30T21:59:44.1678002Z [1m[92m  Downloaded[0m regex-automata v0.4.16
+build-android	Build Android APK	2026-07-30T21:59:44.1830800Z [1m[92m  Downloaded[0m cairo-rs v0.18.5
+build-android	Build Android APK	2026-07-30T21:59:44.1866328Z [1m[92m  Downloaded[0m crc32fast v1.5.0
+build-android	Build Android APK	2026-07-30T21:59:44.1886502Z [1m[92m  Downloaded[0m cssparser v0.36.0
+build-android	Build Android APK	2026-07-30T21:59:44.1912180Z [1m[92m  Downloaded[0m bytes v1.12.1
+build-android	Build Android APK	2026-07-30T21:59:44.1950603Z [1m[92m  Downloaded[0m unic-common v0.9.0
+build-android	Build Android APK	2026-07-30T21:59:44.1958927Z [1m[92m  Downloaded[0m crossbeam-channel v0.5.16
+build-android	Build Android APK	2026-07-30T21:59:44.2003153Z [1m[92m  Downloaded[0m typenum v1.20.1
+build-android	Build Android APK	2026-07-30T21:59:44.2041414Z [1m[92m  Downloaded[0m winnow v0.5.40
+build-android	Build Android APK	2026-07-30T21:59:44.2135951Z [1m[92m  Downloaded[0m libc v0.2.189
+build-android	Build Android APK	2026-07-30T21:59:44.2616100Z [1m[92m  Downloaded[0m indexmap v1.9.3
+build-android	Build Android APK	2026-07-30T21:59:44.2650133Z [1m[92m  Downloaded[0m unicode-segmentation v1.13.3
+build-android	Build Android APK	2026-07-30T21:59:44.2681526Z [1m[92m  Downloaded[0m wry v0.55.1
+build-android	Build Android APK	2026-07-30T21:59:44.2764629Z [1m[92m  Downloaded[0m url v2.5.8
+build-android	Build Android APK	2026-07-30T21:59:44.2792949Z [1m[92m  Downloaded[0m bitflags v2.13.1
+build-android	Build Android APK	2026-07-30T21:59:44.2841842Z [1m[92m  Downloaded[0m cargo_toml v0.22.3
+build-android	Build Android APK	2026-07-30T21:59:44.2856247Z [1m[92m  Downloaded[0m hashbrown v0.17.1
+build-android	Build Android APK	2026-07-30T21:59:44.2913053Z [1m[92m  Downloaded[0m libdbus-sys v0.2.7
+build-android	Build Android APK	2026-07-30T21:59:44.3247668Z [1m[92m  Downloaded[0m toml v0.9.12+spec-1.1.0
+build-android	Build Android APK	2026-07-30T21:59:44.3291111Z [1m[92m  Downloaded[0m typeid v1.0.3
+build-android	Build Android APK	2026-07-30T21:59:44.3304928Z [1m[92m  Downloaded[0m unicode-ident v1.0.24
+build-android	Build Android APK	2026-07-30T21:59:44.3334755Z [1m[92m  Downloaded[0m version-compare v0.2.1
+build-android	Build Android APK	2026-07-30T21:59:44.3348573Z [1m[92m  Downloaded[0m bs58 v0.5.1
+build-android	Build Android APK	2026-07-30T21:59:44.3372348Z [1m[92m  Downloaded[0m chrono v0.4.45
+build-android	Build Android APK	2026-07-30T21:59:44.3444468Z [1m[92m  Downloaded[0m winnow v0.7.15
+build-android	Build Android APK	2026-07-30T21:59:44.3548053Z [1m[92m  Downloaded[0m tinyvec_macros v0.1.1
+build-android	Build Android APK	2026-07-30T21:59:44.3556826Z [1m[92m  Downloaded[0m toml_writer v1.1.2+spec-1.1.0
+build-android	Build Android APK	2026-07-30T21:59:44.3570641Z [1m[92m  Downloaded[0m toml v0.8.2
+build-android	Build Android APK	2026-07-30T21:59:44.3604549Z [1m[92m  Downloaded[0m toml_parser v1.1.3+spec-1.1.0
+build-android	Build Android APK	2026-07-30T21:59:44.3628680Z [1m[92m  Downloaded[0m bitflags v1.3.2
+build-android	Build Android APK	2026-07-30T21:59:44.3665376Z [1m[92m  Downloaded[0m webkit2gtk v2.0.2
+build-android	Build Android APK	2026-07-30T21:59:44.3731956Z [1m[92m  Downloaded[0m brotli v8.0.4
+build-android	Build Android APK	2026-07-30T21:59:44.3888146Z [1m[92m  Downloaded[0m x11 v2.21.0
+build-android	Build Android APK	2026-07-30T21:59:44.3922194Z [1m[92m  Downloaded[0m tokio v1.53.1
+build-android	Build Android APK	2026-07-30T21:59:44.5729481Z [1m[92m   Compiling[0m proc-macro2 v1.0.107
+build-android	Build Android APK	2026-07-30T21:59:44.5730750Z [1m[92m   Compiling[0m unicode-ident v1.0.24
+build-android	Build Android APK	2026-07-30T21:59:44.5731580Z [1m[92m   Compiling[0m quote v1.0.47
+build-android	Build Android APK	2026-07-30T21:59:44.5732989Z [1m[92m   Compiling[0m serde_core v1.0.229
+build-android	Build Android APK	2026-07-30T21:59:44.8526736Z [1m[92m   Compiling[0m serde v1.0.229
+build-android	Build Android APK	2026-07-30T21:59:45.1109470Z [1m[92m   Compiling[0m smallvec v1.15.2
+build-android	Build Android APK	2026-07-30T21:59:45.1229499Z [1m[92m   Compiling[0m hashbrown v0.17.1
+build-android	Build Android APK	2026-07-30T21:59:45.2871988Z [1m[92m   Compiling[0m equivalent v1.0.2
+build-android	Build Android APK	2026-07-30T21:59:45.3215665Z [1m[92m   Compiling[0m libc v0.2.189
+build-android	Build Android APK	2026-07-30T21:59:45.5673384Z [1m[92m   Compiling[0m pkg-config v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:45.6999937Z [1m[92m   Compiling[0m indexmap v2.14.0
+build-android	Build Android APK	2026-07-30T21:59:46.0923407Z [1m[92m   Compiling[0m heck v0.5.0
+build-android	Build Android APK	2026-07-30T21:59:46.2313440Z [1m[92m   Compiling[0m syn v3.0.3
+build-android	Build Android APK	2026-07-30T21:59:46.2536929Z [1m[92m   Compiling[0m syn v2.0.119
+build-android	Build Android APK	2026-07-30T21:59:46.4021198Z [1m[92m   Compiling[0m winnow v0.5.40
+build-android	Build Android APK	2026-07-30T21:59:47.2393659Z [1m[92m   Compiling[0m target-lexicon v0.12.16
+build-android	Build Android APK	2026-07-30T21:59:47.7973464Z [1m[92m   Compiling[0m cfg-expr v0.15.8
+build-android	Build Android APK	2026-07-30T21:59:48.0933885Z [1m[92m   Compiling[0m version-compare v0.2.1
+build-android	Build Android APK	2026-07-30T21:59:48.6162715Z [1m[92m   Compiling[0m serde_derive v1.0.229
+build-android	Build Android APK	2026-07-30T21:59:49.4633547Z [1m[92m   Compiling[0m synstructure v0.13.2
+build-android	Build Android APK	2026-07-30T21:59:49.9923441Z [1m[92m   Compiling[0m displaydoc v0.2.7
+build-android	Build Android APK	2026-07-30T21:59:50.5882081Z [1m[92m   Compiling[0m version_check v0.9.5
+build-android	Build Android APK	2026-07-30T21:59:50.8141684Z [1m[92m   Compiling[0m thiserror v1.0.69
+build-android	Build Android APK	2026-07-30T21:59:50.9775366Z [1m[92m   Compiling[0m siphasher v1.0.3
+build-android	Build Android APK	2026-07-30T21:59:51.0833689Z [1m[92m   Compiling[0m icu_properties_data v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:51.0917517Z [1m[92m   Compiling[0m zerofrom-derive v0.1.7
+build-android	Build Android APK	2026-07-30T21:59:51.1134657Z [1m[92m   Compiling[0m yoke-derive v0.8.2
+build-android	Build Android APK	2026-07-30T21:59:51.1700230Z [1m[92m   Compiling[0m zerovec-derive v0.11.3
+build-android	Build Android APK	2026-07-30T21:59:52.0063571Z [1m[92m   Compiling[0m toml_datetime v0.6.3
+build-android	Build Android APK	2026-07-30T21:59:52.0501040Z [1m[92m   Compiling[0m serde_spanned v0.6.9
+build-android	Build Android APK	2026-07-30T21:59:52.1274226Z [1m[92m   Compiling[0m toml_edit v0.20.2
+build-android	Build Android APK	2026-07-30T21:59:52.1308530Z [1m[92m   Compiling[0m thiserror-impl v1.0.69
+build-android	Build Android APK	2026-07-30T21:59:52.1424879Z [1m[92m   Compiling[0m phf_shared v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:52.1753779Z [1m[92m   Compiling[0m fastrand v2.5.0
+build-android	Build Android APK	2026-07-30T21:59:52.2773877Z [1m[92m   Compiling[0m icu_normalizer_data v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:52.3543662Z [1m[92m   Compiling[0m phf_generator v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:52.3764210Z [1m[92m   Compiling[0m stable_deref_trait v1.2.1
+build-android	Build Android APK	2026-07-30T21:59:52.4243453Z [1m[92m   Compiling[0m cfg-if v1.0.4
+build-android	Build Android APK	2026-07-30T21:59:52.4545657Z [1m[92m   Compiling[0m memchr v2.8.3
+build-android	Build Android APK	2026-07-30T21:59:52.4663276Z [1m[92m   Compiling[0m zmij v1.0.23
+build-android	Build Android APK	2026-07-30T21:59:52.6113493Z [1m[92m   Compiling[0m zerofrom v0.1.8
+build-android	Build Android APK	2026-07-30T21:59:52.7119453Z [1m[92m   Compiling[0m autocfg v1.5.1
+build-android	Build Android APK	2026-07-30T21:59:53.1673590Z [1m[92m   Compiling[0m yoke v0.8.3
+build-android	Build Android APK	2026-07-30T21:59:53.3223410Z [1m[92m   Compiling[0m semver v1.0.28
+build-android	Build Android APK	2026-07-30T21:59:53.7603433Z [1m[92m   Compiling[0m parking_lot_core v0.9.12
+build-android	Build Android APK	2026-07-30T21:59:53.8493559Z [1m[92m   Compiling[0m toml v0.8.2
+build-android	Build Android APK	2026-07-30T21:59:53.9793625Z [1m[92m   Compiling[0m zerovec v0.11.6
+build-android	Build Android APK	2026-07-30T21:59:54.2821277Z [1m[92m   Compiling[0m system-deps v6.2.2
+build-android	Build Android APK	2026-07-30T21:59:54.4732557Z [1m[92m   Compiling[0m phf_macros v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:54.5293717Z [1m[92m   Compiling[0m proc-macro-error-attr v1.0.4
+build-android	Build Android APK	2026-07-30T21:59:54.6173582Z [1m[92m   Compiling[0m syn v1.0.109
+build-android	Build Android APK	2026-07-30T21:59:54.7813416Z [1m[92m   Compiling[0m typeid v1.0.3
+build-android	Build Android APK	2026-07-30T21:59:54.9563366Z [1m[92m   Compiling[0m proc-macro-error v1.0.4
+build-android	Build Android APK	2026-07-30T21:59:54.9717642Z [1m[92m   Compiling[0m thiserror v2.0.19
+build-android	Build Android APK	2026-07-30T21:59:55.0319303Z [1m[92m   Compiling[0m time-core v0.1.9
+build-android	Build Android APK	2026-07-30T21:59:55.0489457Z [1m[92m   Compiling[0m num-conv v0.2.2
+build-android	Build Android APK	2026-07-30T21:59:55.0573359Z [1m[92m   Compiling[0m glib-sys v0.18.1
+build-android	Build Android APK	2026-07-30T21:59:55.1613238Z [1m[92m   Compiling[0m gobject-sys v0.18.0
+build-android	Build Android APK	2026-07-30T21:59:55.1709983Z [1m[92m   Compiling[0m gio-sys v0.18.1
+build-android	Build Android APK	2026-07-30T21:59:55.1843447Z [1m[92m   Compiling[0m gdk-sys v0.18.2
+build-android	Build Android APK	2026-07-30T21:59:55.3633527Z [1m[92m   Compiling[0m tinystr v0.8.3
+build-android	Build Android APK	2026-07-30T21:59:55.5483623Z [1m[92m   Compiling[0m phf_codegen v0.13.1
+build-android	Build Android APK	2026-07-30T21:59:55.6745289Z [1m[92m   Compiling[0m strsim v0.11.1
+build-android	Build Android APK	2026-07-30T21:59:55.9301631Z [1m[92m   Compiling[0m itoa v1.0.18
+build-android	Build Android APK	2026-07-30T21:59:55.9703910Z [1m[92m   Compiling[0m litemap v0.8.2
+build-android	Build Android APK	2026-07-30T21:59:56.0503419Z [1m[92m   Compiling[0m erased-serde v0.4.10
+build-android	Build Android APK	2026-07-30T21:59:56.1186512Z [1m[92m   Compiling[0m writeable v0.6.3
+build-android	Build Android APK	2026-07-30T21:59:56.1873003Z [1m[92m   Compiling[0m futures-core v0.3.33
+build-android	Build Android APK	2026-07-30T21:59:56.1973121Z [1m[92m   Compiling[0m ident_case v1.0.1
+build-android	Build Android APK	2026-07-30T21:59:56.2568339Z [1m[92m   Compiling[0m pin-project-lite v0.2.17
+build-android	Build Android APK	2026-07-30T21:59:56.2628745Z [1m[92m   Compiling[0m darling_core v0.23.0
+build-android	Build Android APK	2026-07-30T21:59:56.2776486Z [1m[92m   Compiling[0m icu_locale_core v2.2.0
+build-android	Build Android APK	2026-07-30T21:59:56.6475455Z [1m[91merror[0m: failed to run custom build command for `gdk-sys v0.18.2`
+build-android	Build Android APK	2026-07-30T21:59:56.6500541Z 
+build-android	Build Android APK	2026-07-30T21:59:56.6517976Z Caused by:
+build-android	Build Android APK	2026-07-30T21:59:56.6519969Z   process didn't exit successfully: `/home/runner/work/BoraPlayer/BoraPlayer/src-tauri/target/release/build/gdk-sys-3680c3640ce7b35a/build-script-build` (exit status: 1)
+build-android	Build Android APK	2026-07-30T21:59:56.6521483Z   --- stdout
+build-android	Build Android APK	2026-07-30T21:59:56.6522614Z   cargo:rerun-if-env-changed=GDK_3.0_NO_PKG_CONFIG
+build-android	Build Android APK	2026-07-30T21:59:56.6523746Z   cargo:rerun-if-env-changed=PKG_CONFIG_x86_64-unknown-linux-gnu
+build-android	Build Android APK	2026-07-30T21:59:56.6524918Z   cargo:rerun-if-env-changed=PKG_CONFIG_x86_64_unknown_linux_gnu
+build-android	Build Android APK	2026-07-30T21:59:56.6525930Z   cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+build-android	Build Android APK	2026-07-30T21:59:56.6526804Z   cargo:rerun-if-env-changed=PKG_CONFIG
+build-android	Build Android APK	2026-07-30T21:59:56.6527869Z   cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64-unknown-linux-gnu
+build-android	Build Android APK	2026-07-30T21:59:56.6529117Z   cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64_unknown_linux_gnu
+build-android	Build Android APK	2026-07-30T21:59:56.6530185Z   cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+build-android	Build Android APK	2026-07-30T21:59:56.6531105Z   cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+build-android	Build Android APK	2026-07-30T21:59:56.6532739Z   cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64-unknown-linux-gnu
+build-android	Build Android APK	2026-07-30T21:59:56.6534061Z   cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64_unknown_linux_gnu
+build-android	Build Android APK	2026-07-30T21:59:56.6535152Z   cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+build-android	Build Android APK	2026-07-30T21:59:56.6536109Z   cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+build-android	Build Android APK	2026-07-30T21:59:56.6537291Z   cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64-unknown-linux-gnu
+build-android	Build Android APK	2026-07-30T21:59:56.6538621Z   cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64_unknown_linux_gnu
+build-android	Build Android APK	2026-07-30T21:59:56.6539785Z   cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+build-android	Build Android APK	2026-07-30T21:59:56.6540777Z   cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+build-android	Build Android APK	2026-07-30T21:59:56.6541378Z 
+build-android	Build Android APK	2026-07-30T21:59:56.6542471Z   --- stderr
+build-android	Build Android APK	2026-07-30T21:59:56.6542893Z 
+build-android	Build Android APK	2026-07-30T21:59:56.6543417Z   pkg-config exited with status code 1
+build-android	Build Android APK	2026-07-30T21:59:56.6544660Z   > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags gdk-3.0 'gdk-3.0 >= 3.22'
+build-android	Build Android APK	2026-07-30T21:59:56.6545477Z 
+build-android	Build Android APK	2026-07-30T21:59:56.6545882Z   pkg-config output:
+build-android	Build Android APK	2026-07-30T21:59:56.6546821Z     Package gdk-3.0 was not found in the pkg-config search path.
+build-android	Build Android APK	2026-07-30T21:59:56.6547972Z     Perhaps you should add the directory containing `gdk-3.0.pc'
+build-android	Build Android APK	2026-07-30T21:59:56.6548995Z     to the PKG_CONFIG_PATH environment variable
+build-android	Build Android APK	2026-07-30T21:59:56.6550021Z     Package 'gdk-3.0', required by 'virtual:world', not found
+build-android	Build Android APK	2026-07-30T21:59:56.6551091Z     Package 'gdk-3.0', required by 'virtual:world', not found
+build-android	Build Android APK	2026-07-30T21:59:56.6551707Z 
+build-android	Build Android APK	2026-07-30T21:59:56.6552685Z   The system library `gdk-3.0` required by crate `gdk-sys` was not found.
+build-android	Build Android APK	2026-07-30T21:59:56.6554380Z   The file `gdk-3.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+build-android	Build Android APK	2026-07-30T21:59:56.6555808Z   The PKG_CONFIG_PATH environment variable is not set.
+build-android	Build Android APK	2026-07-30T21:59:56.6556701Z 
+build-android	Build Android APK	2026-07-30T21:59:56.6557884Z   HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `gdk-3.0.pc`.
+build-android	Build Android APK	2026-07-30T21:59:56.6558784Z 
+build-android	Build Android APK	2026-07-30T21:59:56.6559750Z [1m[33mwarning[0m: build failed, waiting for other jobs to finish...
+build-android	Build Android APK	2026-07-30T21:59:58.2999478Z failed to build app: failed to build app
+build-android	Build Android APK	2026-07-30T21:59:58.3000473Z        Error failed to build app: failed to build app
+build-android	Build Android APK	2026-07-30T21:59:58.3142457Z ##[error]Command failed with exit code 1: npm run tauri build
