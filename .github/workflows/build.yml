@@ -4,7 +4,6 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
-
 jobs:
   build-desktop:
     strategy:
@@ -32,7 +31,12 @@ jobs:
         uses: tauri-apps/tauri-action@v0.5.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: boraplayer-desktop-${{ matrix.platform }}
+          path: src-tauri/target/release/bundle/**
+          if-no-files-found: warn
   build-android:
     runs-on: ubuntu-22.04
     steps:
@@ -63,13 +67,16 @@ jobs:
         uses: android-actions/setup-android@v3
       - name: Install frontend dependencies
         run: npm install
+      - name: Init Android project
+        run: npx tauri android init
       - name: Build Android APK
-        uses: tauri-apps/tauri-action@v0.5.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx tauri android build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          mobile: android
-
+          name: boraplayer-android
+          path: src-tauri/gen/android/app/build/outputs/**
+          if-no-files-found: warn
   build-ios:
     runs-on: macos-latest
     steps:
