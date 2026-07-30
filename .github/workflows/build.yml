@@ -1,4 +1,4 @@
-kname: Build All Platforms
+name: Build All Platforms
 on:
   push:
     tags:
