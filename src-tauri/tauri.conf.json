@@ -2,9 +2,9 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "BoraPlayer",
   "version": "1.0.0",
-  "identifier": "com.boraplayer.app",
+  "identifier": "com.boraplayer.desktop",
   "build": {
-    "frontendDist": "../"
+    "frontendDist": "../dist"
   },
   "app": {
     "windows": [
