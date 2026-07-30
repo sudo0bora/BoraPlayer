@@ -1,13 +1,10 @@
 name: Build All Platforms
-
 on:
   push:
     tags:
-      - 'v*' # Triggers when you push a version tag (e.g., git tag v1.0.0 && git push --tags)
-  workflow_dispatch: # Lets you trigger a build manually straight from GitHub
-
+      - 'v*'
+  workflow_dispatch:
 jobs:
-  # 1. BUILD LINUX & WINDOWS DESKTOP
   build-desktop:
     strategy:
       fail-fast: false
@@ -16,86 +13,71 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
-
       - name: Install Linux Dependencies
         if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
-
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libsoup-3.0-dev libappindicator3-dev librsvg2-dev patchelf build-essential libssl-dev libgtk-3-dev
       - name: Install frontend dependencies
         run: npm install
-
       - name: Build Tauri Desktop
         uses: tauri-apps/tauri-action@v0.5.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # 2. BUILD ANDROID APK
   build-android:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
       - name: Install Rust stable with Android targets
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
-
+      - name: Confirm Android Rust targets
+        run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
       - name: Setup Java (JDK)
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-
       - name: Install frontend dependencies
         run: npm install
-
       - name: Build Android APK
         uses: tauri-apps/tauri-action@v0.5.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: --target android
-
-  # 3. BUILD iOS APP (IPA)
   build-ios:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
       - name: Install Rust stable with iOS targets
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: aarch64-apple-ios,x86_64-apple-ios
-
+          targets: aarch64-apple-ios,x86_64-apple-ios,aarch64-apple-ios-sim
+      - name: Confirm iOS Rust targets
+        run: rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
       - name: Install frontend dependencies
         run: npm install
-
       - name: Build iOS App
         uses: tauri-apps/tauri-action@v0.5.2
         env:
