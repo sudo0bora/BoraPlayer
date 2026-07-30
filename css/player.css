@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Main Player View & Tracklist Layout
+   ========================================================================== */
+#main-view {
+  grid-area: main;
+  background-color: var(--bg-app);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: var(--space-lg);
+  gap: var(--space-md);
+}
+
+/* Header & Actions */
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-header h1 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.primary-btn {
+  background-color: var(--primary);
+  color: #000;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--border-radius-full);
+  transition: background-color var(--transition-fast), transform 0.05s ease;
+}
+
+.primary-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.primary-btn:active {
+  background-color: var(--primary-active);
+  transform: scale(0.98);
+}
+
+/* Playlist & Track Columns */
+.playlist-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.playlist-header,
+.track-row {
+  display: grid;
+  grid-template-columns: 2.5fr 1.5fr 1.5fr 70px 60px;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 16px;
+}
+
+.playlist-header {
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-xs);
+}
+
+.playlist-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.track-row {
+  background: transparent;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-main);
+  transition: background-color var(--transition-fast);
+  cursor: pointer;
+}
+
+.track-row:hover {
+  background-color: var(--bg-surface-hover);
+}
+
+.track-row.playing {
+  background-color: var(--bg-surface-active);
+  color: var(--primary);
+}
+
+.col-title {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Wraps title + artist so the artist can be shown as a subtitle on narrow screens */
+.title-block {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.track-title-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Hidden by default on desktop, where the Artist column already shows this */
+.track-subtitle {
+  display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+.col-artist,
+.col-album {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+.track-row.playing .col-artist,
+.track-row.playing .col-album {
+  color: var(--text-main);
+}
