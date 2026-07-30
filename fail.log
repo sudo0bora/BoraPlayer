@@ -1,0 +1,56 @@
+build-android	Build Android APK	﻿2026-07-30T21:49:04.4820919Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build-android	Build Android APK	2026-07-30T21:49:04.4822318Z ##[group]Run tauri-apps/tauri-action@v0.5.2
+build-android	Build Android APK	2026-07-30T21:49:04.4822602Z with:
+build-android	Build Android APK	2026-07-30T21:49:04.4822798Z   args: --target android
+build-android	Build Android APK	2026-07-30T21:49:04.4823030Z   releaseDraft: false
+build-android	Build Android APK	2026-07-30T21:49:04.4823239Z   prerelease: false
+build-android	Build Android APK	2026-07-30T21:49:04.4823438Z   projectPath: .
+build-android	Build Android APK	2026-07-30T21:49:04.4823636Z   includeDebug: false
+build-android	Build Android APK	2026-07-30T21:49:04.4823841Z   includeRelease: true
+build-android	Build Android APK	2026-07-30T21:49:04.4824058Z   includeUpdaterJson: true
+build-android	Build Android APK	2026-07-30T21:49:04.4824301Z   updaterJsonKeepUniversal: false
+build-android	Build Android APK	2026-07-30T21:49:04.4824548Z env:
+build-android	Build Android APK	2026-07-30T21:49:04.4824755Z   CARGO_HOME: /home/runner/.cargo
+build-android	Build Android APK	2026-07-30T21:49:04.4824998Z   CARGO_INCREMENTAL: 0
+build-android	Build Android APK	2026-07-30T21:49:04.4825266Z   CARGO_TERM_COLOR: always
+build-android	Build Android APK	2026-07-30T21:49:04.4825594Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build-android	Build Android APK	2026-07-30T21:49:04.4826082Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build-android	Build Android APK	2026-07-30T21:49:04.4826486Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build-android	Build Android APK	2026-07-30T21:49:04.4826773Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build-android	Build Android APK	2026-07-30T21:49:04.4829165Z   GITHUB_TOKEN: ***
+build-android	Build Android APK	2026-07-30T21:49:04.4829379Z ##[endgroup]
+build-android	Build Android APK	2026-07-30T21:49:04.6127114Z running npm [ 'run', 'tauri', 'build', '--', '--target', 'android' ]
+build-android	Build Android APK	2026-07-30T21:49:04.7467685Z 
+build-android	Build Android APK	2026-07-30T21:49:04.7468684Z > tauri
+build-android	Build Android APK	2026-07-30T21:49:04.7469179Z > tauri build --target android
+build-android	Build Android APK	2026-07-30T21:49:04.7469430Z 
+build-android	Build Android APK	2026-07-30T21:49:04.8964791Z         Info Looking up installed tauri packages to check mismatched versions...
+build-android	Build Android APK	2026-07-30T21:49:05.3356490Z failed to build app: Target android does not exist. Please run `rustup target list` to see the available targets.
+build-android	Build Android APK	2026-07-30T21:49:05.3358090Z        Error failed to build app: Target android does not exist. Please run `rustup target list` to see the available targets.
+build-android	Build Android APK	2026-07-30T21:49:05.3514837Z ##[error]Command failed with exit code 1: npm run tauri build -- --target android
+build-ios	Build iOS App	﻿2026-07-30T21:48:44.7250910Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build-ios	Build iOS App	2026-07-30T21:48:44.7252030Z ##[group]Run tauri-apps/tauri-action@v0.5.2
+build-ios	Build iOS App	2026-07-30T21:48:44.7252230Z with:
+build-ios	Build iOS App	2026-07-30T21:48:44.7252370Z   args: --target ios
+build-ios	Build iOS App	2026-07-30T21:48:44.7252540Z   releaseDraft: false
+build-ios	Build iOS App	2026-07-30T21:48:44.7252720Z   prerelease: false
+build-ios	Build iOS App	2026-07-30T21:48:44.7252880Z   projectPath: .
+build-ios	Build iOS App	2026-07-30T21:48:44.7253030Z   includeDebug: false
+build-ios	Build iOS App	2026-07-30T21:48:44.7253190Z   includeRelease: true
+build-ios	Build iOS App	2026-07-30T21:48:44.7253390Z   includeUpdaterJson: true
+build-ios	Build iOS App	2026-07-30T21:48:44.7253580Z   updaterJsonKeepUniversal: false
+build-ios	Build iOS App	2026-07-30T21:48:44.7253780Z env:
+build-ios	Build iOS App	2026-07-30T21:48:44.7253930Z   CARGO_HOME: /Users/runner/.cargo
+build-ios	Build iOS App	2026-07-30T21:48:44.7254410Z   CARGO_INCREMENTAL: 0
+build-ios	Build iOS App	2026-07-30T21:48:44.7254580Z   CARGO_TERM_COLOR: always
+build-ios	Build iOS App	2026-07-30T21:48:44.7256990Z   GITHUB_TOKEN: ***
+build-ios	Build iOS App	2026-07-30T21:48:44.7257160Z ##[endgroup]
+build-ios	Build iOS App	2026-07-30T21:48:44.9405460Z running npm [ 'run', 'tauri', 'build', '--', '--target', 'ios' ]
+build-ios	Build iOS App	2026-07-30T21:48:45.0577680Z 
+build-ios	Build iOS App	2026-07-30T21:48:45.0648670Z > tauri
+build-ios	Build iOS App	2026-07-30T21:48:45.0749540Z > tauri build --target ios
+build-ios	Build iOS App	2026-07-30T21:48:45.0850170Z 
+build-ios	Build iOS App	2026-07-30T21:48:45.3046490Z         Info Looking up installed tauri packages to check mismatched versions...
+build-ios	Build iOS App	2026-07-30T21:48:45.7823450Z failed to build app: Target ios does not exist. Please run `rustup target list` to see the available targets.
+build-ios	Build iOS App	2026-07-30T21:48:45.7840920Z ##[error]Command failed with exit code 1: npm run tauri build -- --target ios
+build-ios	Build iOS App	2026-07-30T21:48:45.7846680Z        Error failed to build app: Target ios does not exist. Please run `rustup target list` to see the available targets.
