@@ -37,6 +37,7 @@ jobs:
           name: boraplayer-desktop-${{ matrix.platform }}
           path: src-tauri/target/release/bundle/**
           if-no-files-found: warn
+
   build-android:
     runs-on: ubuntu-22.04
     steps:
@@ -77,6 +78,7 @@ jobs:
           name: boraplayer-android
           path: src-tauri/gen/android/app/build/outputs/**
           if-no-files-found: warn
+
   build-ios:
     runs-on: macos-latest
     steps:
@@ -96,25 +98,18 @@ jobs:
         run: npm install
       - name: Init iOS project
         run: npx tauri ios init
-      - name: Build iOS App (unsigned)
-        run: |
-          xcodebuild archive \
-            -workspace src-tauri/gen/apple/app.xcodeproj/project.xcworkspace \
-            -scheme app_iOS \
-            -configuration release \
-            -archivePath build/app.xcarchive \
-            -sdk iphoneos \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY=""
-      - name: Package unsigned IPA
-        run: |
-          mkdir -p build/Payload
-          cp -r build/app.xcarchive/Products/Applications/*.app build/Payload/
-          cd build && zip -r BoraPlayer-unsigned.ipa Payload
+        env:
+          APPLE_DEVELOPMENT_TEAM: "0000000000"
+      - name: Build iOS App
+        run: npx tauri ios build --export-method debugging
+        env:
+          APPLE_DEVELOPMENT_TEAM: "0000000000"
+          CODE_SIGN_IDENTITY: "-"
+          CODE_SIGNING_REQUIRED: "NO"
+          CODE_SIGNING_ALLOWED: "YES"
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: boraplayer-ios
-          path: build/BoraPlayer-unsigned.ipa
+          path: src-tauri/gen/apple/build/**/*.ipa
           if-no-files-found: warn
