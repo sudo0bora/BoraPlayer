@@ -1,106 +1,11 @@
-build-ios	Build iOS App	﻿2026-07-31T19:22:33.9806200Z ##[group]Run npx tauri ios build --export-method debugging
-build-ios	Build iOS App	2026-07-31T19:22:33.9806800Z [36;1mnpx tauri ios build --export-method debugging[0m
-build-ios	Build iOS App	2026-07-31T19:22:33.9847720Z shell: /bin/bash -e {0}
-build-ios	Build iOS App	2026-07-31T19:22:33.9848070Z env:
-build-ios	Build iOS App	2026-07-31T19:22:33.9848350Z   CARGO_HOME: /Users/runner/.cargo
-build-ios	Build iOS App	2026-07-31T19:22:33.9848740Z   CARGO_INCREMENTAL: 0
-build-ios	Build iOS App	2026-07-31T19:22:33.9849020Z   CARGO_TERM_COLOR: always
-build-ios	Build iOS App	2026-07-31T19:22:33.9849320Z   APPLE_DEVELOPMENT_TEAM: 0000000000
-build-ios	Build iOS App	2026-07-31T19:22:33.9849580Z   CODE_SIGN_IDENTITY: -
-build-ios	Build iOS App	2026-07-31T19:22:33.9849870Z   CODE_SIGNING_REQUIRED: NO
-build-ios	Build iOS App	2026-07-31T19:22:33.9850120Z   CODE_SIGNING_ALLOWED: YES
-build-ios	Build iOS App	2026-07-31T19:22:33.9850360Z ##[endgroup]
-build-ios	Build iOS App	2026-07-31T19:22:46.9152210Z         Info Looking up installed tauri packages to check mismatched versions...
-build-ios	Build iOS App	2026-07-31T19:22:48.0146030Z Command line invocation:
-build-ios	Build iOS App	2026-07-31T19:22:48.0177650Z     /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/xcodebuild -allowProvisioningUpdates -scheme app_iOS -workspace /Users/runner/work/BoraPlayer/BoraPlayer/src-tauri/gen/apple/app.xcodeproj/project.xcworkspace/ -sdk iphoneos -configuration release build
-build-ios	Build iOS App	2026-07-31T19:22:48.0181820Z 
-build-ios	Build iOS App	2026-07-31T19:22:48.0182260Z Build settings from command line:
-build-ios	Build iOS App	2026-07-31T19:22:48.0184670Z     SDKROOT = iphoneos26.5
-build-ios	Build iOS App	2026-07-31T19:22:48.0185290Z 
-build-ios	Build iOS App	2026-07-31T19:22:50.5222130Z --- xcodebuild: WARNING: Using the first of multiple matching destinations:
-build-ios	Build iOS App	2026-07-31T19:22:50.5226040Z { platform:iOS, id:dvtdevice-DVTiPhonePlaceholder-iphoneos:placeholder, name:Any iOS Device }
-build-ios	Build iOS App	2026-07-31T19:22:50.5236890Z { platform:macOS, arch:arm64, variant:Designed for [iPad,iPhone], id:93b8d91bd43754609888fa4b79c014c76706f05d, name:My Mac }
-build-ios	Build iOS App	2026-07-31T19:22:50.5238240Z { platform:iOS Simulator, id:dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder, name:Any iOS Simulator Device }
-build-ios	Build iOS App	2026-07-31T19:22:50.5239570Z { platform:visionOS Simulator, arch:arm64, variant:Designed for [iPad,iPhone], id:BE484E48-A1E0-48D0-B0F8-4473D03325C5, OS:26.2, name:Apple Vision Pro }
-build-ios	Build iOS App	2026-07-31T19:22:50.5240830Z { platform:visionOS Simulator, arch:arm64, variant:Designed for [iPad,iPhone], id:566D8F24-7A0A-4233-B1E3-4918398F2F55, OS:26.4.1, name:Apple Vision Pro }
-build-ios	Build iOS App	2026-07-31T19:22:50.5242760Z { platform:visionOS Simulator, arch:arm64, variant:Designed for [iPad,iPhone], id:3D0ABE4F-AD0F-4D27-8707-3F3A8BFF9E0F, OS:26.5, name:Apple Vision Pro }
-build-ios	Build iOS App	2026-07-31T19:22:50.5261660Z { platform:iOS Simulator, arch:arm64, id:34703DD5-6831-4A40-B51B-12BB2AF833FF, OS:26.2, name:iPad (A16) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5288770Z { platform:iOS Simulator, arch:arm64, id:AEAB41E2-B911-469E-A937-B89C3BC57887, OS:26.4.1, name:iPad (A16) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5292400Z { platform:iOS Simulator, arch:arm64, id:C7084CDD-3835-44B2-801F-57E640759790, OS:26.5, name:iPad (A16) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5301190Z { platform:iOS Simulator, arch:arm64, id:0B38A3FD-7EEB-41C1-988C-47D5E50ADC4A, OS:26.2, name:iPad Air 11-inch (M3) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5318120Z { platform:iOS Simulator, arch:arm64, id:A245D7CA-E4F0-4A9F-B394-2392E78FFD41, OS:26.4.1, name:iPad Air 11-inch (M4) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5321110Z { platform:iOS Simulator, arch:arm64, id:B67CCB26-F271-45E5-B60A-840907A95372, OS:26.5, name:iPad Air 11-inch (M4) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5323770Z { platform:iOS Simulator, arch:arm64, id:11100B22-7945-4D12-A6C0-E7E1AC1F49FB, OS:26.2, name:iPad Air 13-inch (M3) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5330750Z { platform:iOS Simulator, arch:arm64, id:4FB1F411-0629-4EAA-B390-C5C4F1EDD080, OS:26.4.1, name:iPad Air 13-inch (M4) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5333930Z { platform:iOS Simulator, arch:arm64, id:FFD220A2-A803-49C3-BE74-F86868045C1B, OS:26.5, name:iPad Air 13-inch (M4) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5336140Z { platform:iOS Simulator, arch:arm64, id:720F735B-B4B4-4692-9B20-2CF0AC1B1438, OS:26.2, name:iPad Pro 11-inch (M5) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5337370Z { platform:iOS Simulator, arch:arm64, id:E59B2434-1795-4D71-BD22-66A888EF4940, OS:26.4.1, name:iPad Pro 11-inch (M5) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5338650Z { platform:iOS Simulator, arch:arm64, id:30835194-E95D-4011-A3D1-12F5D5F6412F, OS:26.5, name:iPad Pro 11-inch (M5) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5346260Z { platform:iOS Simulator, arch:arm64, id:50E2E8BC-50A0-4C2D-943B-E7E53DBDD64C, OS:26.2, name:iPad Pro 13-inch (M5) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5350840Z { platform:iOS Simulator, arch:arm64, id:9A90C5F3-53FC-4FBD-A451-14B8F7D5DF56, OS:26.4.1, name:iPad Pro 13-inch (M5) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5352150Z { platform:iOS Simulator, arch:arm64, id:B29636C6-DD18-4550-B6F7-54EB38151CFA, OS:26.5, name:iPad Pro 13-inch (M5) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5353360Z { platform:iOS Simulator, arch:arm64, id:9F0FDF94-418B-4B84-9974-80DE78929B99, OS:26.2, name:iPad mini (A17 Pro) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5368860Z { platform:iOS Simulator, arch:arm64, id:264D5F9C-BDAA-4475-A832-3105F5D72ECD, OS:26.4.1, name:iPad mini (A17 Pro) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5370340Z { platform:iOS Simulator, arch:arm64, id:7BC5C335-1793-4B5F-A2CF-A3DA10A6205F, OS:26.5, name:iPad mini (A17 Pro) }
-build-ios	Build iOS App	2026-07-31T19:22:50.5372710Z { platform:iOS Simulator, arch:arm64, id:E7BD0281-5697-422C-B0CB-659D99F51028, OS:26.2, name:iPhone 16e }
-build-ios	Build iOS App	2026-07-31T19:22:50.5375510Z { platform:iOS Simulator, arch:arm64, id:9AA9ED9B-42D2-4F6E-B8B5-45AAB66D6404, OS:26.2, name:iPhone 17 }
-build-ios	Build iOS App	2026-07-31T19:22:50.5377230Z { platform:iOS Simulator, arch:arm64, id:670F6F59-DF4D-4B6E-B791-28FF48ACC310, OS:26.4.1, name:iPhone 17 }
-build-ios	Build iOS App	2026-07-31T19:22:50.5382780Z { platform:iOS Simulator, arch:arm64, id:FC5FEF2A-E933-4515-AAEF-C9FC16651D0B, OS:26.5, name:iPhone 17 }
-build-ios	Build iOS App	2026-07-31T19:22:50.5404420Z { platform:iOS Simulator, arch:arm64, id:6F69910C-E4FA-488A-B9C2-41B770484810, OS:26.2, name:iPhone 17 Pro }
-build-ios	Build iOS App	2026-07-31T19:22:50.5408540Z { platform:iOS Simulator, arch:arm64, id:2A6DC5A9-CE8C-4BC5-959D-F98D5F4BD9AA, OS:26.4.1, name:iPhone 17 Pro }
-build-ios	Build iOS App	2026-07-31T19:22:50.5412570Z { platform:iOS Simulator, arch:arm64, id:6EE862FE-93F2-4D55-946E-8745EE2B3A88, OS:26.5, name:iPhone 17 Pro }
-build-ios	Build iOS App	2026-07-31T19:22:50.5432920Z { platform:iOS Simulator, arch:arm64, id:CAF77269-18B1-4CDB-B5D6-D294F2A6B8B5, OS:26.2, name:iPhone 17 Pro Max }
-build-ios	Build iOS App	2026-07-31T19:22:50.5436640Z { platform:iOS Simulator, arch:arm64, id:CB2B1AD7-5B11-458E-8E89-7BCE0B90DFE9, OS:26.4.1, name:iPhone 17 Pro Max }
-build-ios	Build iOS App	2026-07-31T19:22:50.5440630Z { platform:iOS Simulator, arch:arm64, id:6300F6FD-611A-422C-B6F2-F8C162FBDDF7, OS:26.5, name:iPhone 17 Pro Max }
-build-ios	Build iOS App	2026-07-31T19:22:50.5444810Z { platform:iOS Simulator, arch:arm64, id:8D41BEF8-BDAE-4808-AFD5-18425E20D23B, OS:26.4.1, name:iPhone 17e }
-build-ios	Build iOS App	2026-07-31T19:22:50.5486740Z { platform:iOS Simulator, arch:arm64, id:A10B76FC-4115-4057-8550-967F510895A7, OS:26.5, name:iPhone 17e }
-build-ios	Build iOS App	2026-07-31T19:22:50.5494980Z { platform:iOS Simulator, arch:arm64, id:BBED5A57-8BA7-4E5E-BEAC-64304CD7461E, OS:26.2, name:iPhone Air }
-build-ios	Build iOS App	2026-07-31T19:22:50.5565090Z { platform:iOS Simulator, arch:arm64, id:C5E77FA9-F994-4A87-A2B0-F070340AA20F, OS:26.4.1, name:iPhone Air }
-build-ios	Build iOS App	2026-07-31T19:22:50.5677280Z { platform:iOS Simulator, arch:arm64, id:A8C66A3B-A7A0-4BD7-A222-B48E3A881425, OS:26.5, name:iPhone Air }
-build-ios	Build iOS App	2026-07-31T19:22:51.5124800Z ComputePackagePrebuildTargetDependencyGraph
-build-ios	Build iOS App	2026-07-31T19:22:51.5721740Z 
-build-ios	Build iOS App	2026-07-31T19:22:51.5731250Z Prepare packages
-build-ios	Build iOS App	2026-07-31T19:22:51.5734470Z 
-build-ios	Build iOS App	2026-07-31T19:22:51.5760270Z CreateBuildRequest
-build-ios	Build iOS App	2026-07-31T19:22:51.5761020Z 
-build-ios	Build iOS App	2026-07-31T19:22:51.5764130Z SendProjectDescription
-build-ios	Build iOS App	2026-07-31T19:22:51.5831580Z 
-build-ios	Build iOS App	2026-07-31T19:22:51.5836510Z CreateBuildOperation
-build-ios	Build iOS App	2026-07-31T19:22:51.5927010Z 
-build-ios	Build iOS App	2026-07-31T19:22:51.5931550Z ComputeTargetDependencyGraph
-build-ios	Build iOS App	2026-07-31T19:22:51.6015300Z note: Building targets in dependency order
-build-ios	Build iOS App	2026-07-31T19:22:51.6015830Z note: Target dependency graph (1 target)
-build-ios	Build iOS App	2026-07-31T19:22:51.6016580Z     Target 'app_iOS' in project 'app' (no dependencies)
-build-ios	Build iOS App	2026-07-31T19:22:51.6050330Z 
-build-ios	Build iOS App	2026-07-31T19:22:51.6062550Z GatherProvisioningInputs
-build-ios	Build iOS App	2026-07-31T19:22:51.6825380Z 
-build-ios	Build iOS App	2026-07-31T19:22:51.6917290Z CreateBuildDescription
-build-ios	Build iOS App	2026-07-31T19:22:51.7135320Z 
-build-ios	Build iOS App	2026-07-31T19:22:51.7165270Z ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk -x c -c /dev/null
-build-ios	Build iOS App	2026-07-31T19:22:52.0320030Z 
-build-ios	Build iOS App	2026-07-31T19:22:52.0383510Z ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
-build-ios	Build iOS App	2026-07-31T19:22:53.8599190Z 
-build-ios	Build iOS App	2026-07-31T19:22:53.8619070Z ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk -x objective-c++ -c /dev/null
-build-ios	Build iOS App	2026-07-31T19:22:53.8624480Z 
-build-ios	Build iOS App	2026-07-31T19:22:53.8625840Z ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode_26.6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.5.sdk -x c -c /dev/null
-build-ios	Build iOS App	2026-07-31T19:22:53.8626760Z 
-build-ios	Build iOS App	2026-07-31T19:22:53.8627850Z ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/BoraPlayer/BoraPlayer/src-tauri/gen/apple/Assets.xcassets
-build-ios	Build iOS App	2026-07-31T19:22:53.8723960Z 
-build-ios	Build iOS App	2026-07-31T19:22:53.8730200Z ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/usr/bin/actool --version --output-format xml1
-build-ios	Build iOS App	2026-07-31T19:22:53.8801810Z 
-build-ios	Build iOS App	2026-07-31T19:22:53.8833790Z ExecuteExternalTool /Applications/Xcode_26.6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
-build-ios	Build iOS App	2026-07-31T19:22:54.1341550Z 
-build-ios	Build iOS App	2026-07-31T19:22:54.1574380Z Build description signature: 44282b8a401ad5527aa7ac5f75dd1f57
-build-ios	Build iOS App	2026-07-31T19:22:54.1580430Z Build description path: /Users/runner/Library/Developer/Xcode/DerivedData/app-ayaoohcpxevdbbestoqjlyxicdga/Build/Intermediates.noindex/XCBuildData/44282b8a401ad5527aa7ac5f75dd1f57.xcbuilddata
-build-ios	Build iOS App	2026-07-31T19:22:54.1615820Z /Users/runner/work/BoraPlayer/BoraPlayer/src-tauri/gen/apple/app.xcodeproj: error: No Accounts: Add a new account in Accounts settings. (in target 'app_iOS' from project 'app')
-build-ios	Build iOS App	2026-07-31T19:22:54.1618740Z /Users/runner/work/BoraPlayer/BoraPlayer/src-tauri/gen/apple/app.xcodeproj: error: No profiles for 'com.boraplayer.desktop' were found: Xcode couldn't find any iOS App Development provisioning profiles matching 'com.boraplayer.desktop'. (in target 'app_iOS' from project 'app')
-build-ios	Build iOS App	2026-07-31T19:22:54.1626630Z note: Run script build phase 'Build Rust Code' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'app_iOS' from project 'app')
-build-ios	Build iOS App	2026-07-31T19:22:54.1674450Z ** BUILD FAILED **
-build-ios	Build iOS App	2026-07-31T19:22:54.1715520Z 
-build-ios	Build iOS App	2026-07-31T19:22:54.1719710Z 
-build-ios	Build iOS App	2026-07-31T19:22:54.1749670Z The following build commands failed:
-build-ios	Build iOS App	2026-07-31T19:22:54.1752810Z 	Building workspace app with scheme app_iOS and configuration release
-build-ios	Build iOS App	2026-07-31T19:22:54.1753330Z (1 failure)
-build-ios	Build iOS App	2026-07-31T19:22:54.2085550Z failed to build iOS app: failed to build with xcodebuild: command ["xcodebuild"] exited with code 65
-build-ios	Build iOS App	2026-07-31T19:22:54.2098870Z        Error failed to build iOS app: failed to build with xcodebuild: command ["xcodebuild"] exited with code 65
-build-ios	Build iOS App	2026-07-31T19:22:54.2272570Z ##[error]Process completed with exit code 1.
+build-desktop (windows-latest)	List bundle output (debug)	﻿2026-08-01T14:29:42.4400657Z ##[group]Run find src-tauri/target/release/bundle -type f || echo "bundle directory not found"
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4402126Z [36;1mfind src-tauri/target/release/bundle -type f || echo "bundle directory not found"[0m
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4476125Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4476489Z env:
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4476707Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4476973Z   CARGO_INCREMENTAL: 0
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4477210Z   CARGO_TERM_COLOR: always
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4477475Z ##[endgroup]
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.7182624Z FIND: Parameter format not correct
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.7828191Z bundle directory not found
+build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.8428957Z ##[error]Process completed with exit code 1.
