@@ -14,5 +14,10 @@
         "height": 600
       }
     ]
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": []
   }
 }
