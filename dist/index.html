@@ -41,6 +41,8 @@
 
         <link rel="stylesheet" href="css/features.css" />
 
+        <link rel="stylesheet" href="css/visualizer.css" />
+
         <link rel="stylesheet" href="css/responsive.css" />
     </head>
 
@@ -118,6 +120,11 @@
 
                     <div class="playlist-content" id="playlist-content"></div>
                 </div>
+
+                <!-- Toggleable Audio Visualizer -->
+                <div class="visualizer-wrap">
+                    <canvas id="visualizer-canvas"></canvas>
+                </div>
             </main>
 
             <!-- Bottom Player Controls -->
@@ -162,6 +169,18 @@
                 </div>
 
                 <div class="extra-controls">
+                    <button id="visualizer-toggle-btn" class="control-btn" title="Visualizer: Off" aria-label="Toggle Visualizer">
+                        <i class="fa-solid fa-wave-square"></i>
+                    </button>
+
+                    <button id="visualizer-style-btn" class="control-btn" title="Visualizer Style: Bars" aria-label="Change Visualizer Style">
+                        <i class="fa-solid fa-shapes"></i>
+                    </button>
+
+                    <button id="pip-toggle-btn" class="control-btn" title="Picture-in-Picture" aria-label="Toggle Picture-in-Picture">
+                        <i class="fa-regular fa-window-restore"></i>
+                    </button>
+
                     <button id="queue-toggle-btn" class="control-btn" aria-label="Toggle Queue">
                         <i class="fa-solid fa-list-ol"></i>
                     </button>
@@ -378,6 +397,13 @@
             <div class="menu-item menu-item-danger" id="menu-delete"><i class="fa-solid fa-trash"></i> Delete</div>
         </div>
 
+        <!-- Picture-in-Picture host: rendered off-screen, only ever seen
+             inside the native PiP overlay once requested. -->
+        <div class="pip-offscreen" aria-hidden="true">
+            <canvas id="pip-canvas" width="512" height="512"></canvas>
+            <video id="pip-video" muted playsinline></video>
+        </div>
+
         <!-- Toast Notifications -->
 
         <div id="toast-container" class="toast-container"></div>
@@ -393,6 +419,10 @@
         <script src="js/ui.js" defer></script>
 
         <script src="js/library.js" defer></script>
+
+        <script src="js/visualizer.js" defer></script>
+
+        <script src="js/pip.js" defer></script>
 
         <script src="js/app.js" defer></script>
     </body>

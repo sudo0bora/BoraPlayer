@@ -14,6 +14,8 @@ const App = {
     UI.init();
     AudioEngine.init();
     Library.init();
+    Visualizer.init();
+    PiP.init();
 
     this.bindControlEvents();
     this.bindViewEvents();
@@ -27,6 +29,8 @@ const App = {
       Playlist.switchContext('library');
       UI.renderPlaylist(Playlist.currentQueue);
     }
+
+    UI.updateRepeatUI(AudioEngine.repeatMode);
   },
 
   bindControlEvents() {
@@ -119,10 +123,14 @@ const App = {
           const pl = Playlist.customPlaylists.find(p => p.id === plId);
           if (pl) {
             document.getElementById('view-title').textContent = pl.name;
-            document.getElementById('track-headers').style.display = 'flex';
+            // '.playlist-header' is `display: grid` with fixed column
+            // tracks (see player.css) — setting 'flex' here overrode that
+            // and collapsed the Title/Artist/Album/Plays columns together.
+            document.getElementById('track-headers').style.display = 'grid';
             Playlist.switchContext(plId);
             UI.updateHeaderActions(plId);
             UI.renderPlaylist(Playlist.currentQueue);
+            UI.updateRepeatUI(AudioEngine.repeatMode);
           }
         }
       });
@@ -143,11 +151,14 @@ const App = {
         const view = e.currentTarget.dataset.view;
         if (view === 'library') {
           viewTitle.textContent = "Library";
-          trackHeaders.style.display = "flex";
+          // Same fix as above: this must be 'grid' to match .playlist-header's
+          // CSS, or the header columns collapse together.
+          trackHeaders.style.display = "grid";
           if (addPlaylistBtn) addPlaylistBtn.style.display = "none";
           Playlist.switchContext('library');
           UI.updateHeaderActions('library');
           UI.renderPlaylist(Playlist.currentQueue);
+          UI.updateRepeatUI(AudioEngine.repeatMode);
         } else if (view === 'playlists') {
           viewTitle.textContent = "Playlists";
           trackHeaders.style.display = "none";

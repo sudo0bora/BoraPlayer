@@ -200,6 +200,8 @@ const UI = {
         artEl.innerHTML = '<i class="fa-solid fa-music"></i>';
       }
     }
+
+    if (typeof PiP !== 'undefined') PiP.updateNowPlaying(track);
   },
 
   updatePlayState(isPlaying) {
@@ -207,6 +209,8 @@ const UI = {
     if (playBtn) {
       playBtn.innerHTML = isPlaying ? '<i class="fa-solid fa-pause"></i>' : '<i class="fa-solid fa-play"></i>';
     }
+
+    if (typeof PiP !== 'undefined') PiP.updatePlayState(isPlaying);
   },
 
   updateProgress() {
@@ -272,6 +276,8 @@ const UI = {
     btn.dataset.mode = mode;
     btn.style.position = 'relative';
 
+    const trackCount = (typeof Playlist !== 'undefined' && Playlist.currentQueue) ? Playlist.currentQueue.length : 0;
+
     if (mode === 0) {
       btn.innerHTML = '<i class="fa-solid fa-repeat"></i>';
       btn.style.color = 'var(--text-muted, #8e8e99)';
@@ -279,7 +285,8 @@ const UI = {
     } else if (mode === 1) {
       btn.innerHTML = '<i class="fa-solid fa-repeat"></i>';
       btn.style.color = 'var(--text-main, #ffffff)';
-      btn.title = 'Repeat: All';
+      const songLabel = trackCount === 1 ? 'song' : 'songs';
+      btn.title = `Repeating All (${trackCount} ${songLabel})`;
     } else if (mode === 2) {
       btn.innerHTML = '<i class="fa-solid fa-repeat"></i><span style="font-size:0.6rem; font-weight:700; position:absolute; bottom:2px; right:2px; background:var(--bg-app, #121214); padding:0 2px; border-radius:3px; color:#fff;">1</span>';
       btn.style.color = 'var(--text-main, #ffffff)';

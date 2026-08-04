@@ -70,6 +70,7 @@ const Library = {
 
     if (Playlist.activeContextId === 'library') {
       UI.renderPlaylist(Playlist.currentQueue);
+      if (typeof AudioEngine !== 'undefined') UI.updateRepeatUI(AudioEngine.repeatMode);
     }
     Helpers.showToast(`Successfully added ${newTracks.length} song(s)!`, 'success');
   },

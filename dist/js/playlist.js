@@ -51,7 +51,24 @@ const Playlist = {
     newTracks.forEach(t => DB.saveTrack(t));
     this.masterLibrary = [...this.masterLibrary, ...newTracks];
     this.syncFavoritesPlaylist();
-    if (this.activeContextId === 'library') this.currentQueue = [...this.masterLibrary];
+
+    if (this.activeContextId === 'library') {
+      const hasActiveTrack = this.currentIndex >= 0 && this.currentIndex < this.currentQueue.length;
+      const playingTrack = hasActiveTrack ? this.currentQueue[this.currentIndex] : null;
+
+      if (this.isShuffle) {
+        // Keep the existing shuffled order; just tack the new tracks on the end
+        // instead of collapsing back to master-library order.
+        this.currentQueue = [...this.currentQueue, ...newTracks];
+      } else {
+        this.currentQueue = [...this.masterLibrary];
+      }
+
+      if (playingTrack) {
+        const idx = this.currentQueue.findIndex(t => t.id === playingTrack.id);
+        this.currentIndex = idx !== -1 ? idx : this.currentIndex;
+      }
+    }
   },
 
   /**
@@ -100,10 +117,14 @@ const Playlist = {
       this.originalQueue = [...this.currentQueue];
 
       if (this.currentQueue.length > 1) {
-        const currentTrack = this.currentQueue[this.currentIndex];
+        // Only treat a track as "active" if something is actually loaded/playing.
+        const hasActiveTrack = this.currentIndex >= 0 && this.currentIndex < this.currentQueue.length;
+        const currentTrack = hasActiveTrack ? this.currentQueue[this.currentIndex] : null;
 
-        // Filter out current track so it stays at the top of the shuffled queue
-        const remaining = this.currentQueue.filter((_, idx) => idx !== this.currentIndex);
+        // Filter out current track (if any) so it stays at the top of the shuffled queue
+        const remaining = hasActiveTrack
+          ? this.currentQueue.filter((_, idx) => idx !== this.currentIndex)
+          : [...this.currentQueue];
 
         // Fisher-Yates Shuffle
         for (let i = remaining.length - 1; i > 0; i--) {
@@ -113,17 +134,21 @@ const Playlist = {
 
         // Put current track first, followed by shuffled tracks
         this.currentQueue = currentTrack ? [currentTrack, ...remaining] : remaining;
-        this.currentIndex = 0;
+        // Don't fabricate a "now playing" position if nothing was active before.
+        this.currentIndex = hasActiveTrack ? 0 : -1;
       }
     } else {
       // 2. Restore original non-shuffled queue order
       if (this.originalQueue.length > 0) {
-        const currentTrack = this.currentQueue[this.currentIndex];
+        const hasActiveTrack = this.currentIndex >= 0 && this.currentIndex < this.currentQueue.length;
+        const currentTrack = hasActiveTrack ? this.currentQueue[this.currentIndex] : null;
         this.currentQueue = [...this.originalQueue];
 
         if (currentTrack) {
           const restoredIndex = this.currentQueue.findIndex(t => t.id === currentTrack.id);
-          this.currentIndex = restoredIndex !== -1 ? restoredIndex : 0;
+          this.currentIndex = restoredIndex !== -1 ? restoredIndex : -1;
+        } else {
+          this.currentIndex = -1;
         }
       }
     }
@@ -158,10 +183,11 @@ const Playlist = {
     return this.currentQueue[this.currentIndex];
   },
 
-  getPrevTrack() {
+  getPrevTrack(wrap = false) {
     if (this.currentQueue.length === 0) return null;
     let prevIdx = this.currentIndex - 1;
-    if (prevIdx < 0) prevIdx = this.currentQueue.length - 1;
+    if (prevIdx < 0) prevIdx = wrap ? this.currentQueue.length - 1 : -1;
+    if (prevIdx === -1) return null;
     this.currentIndex = prevIdx;
     return this.currentQueue[this.currentIndex];
   },
@@ -219,14 +245,32 @@ const Playlist = {
   },
 
   switchContext(contextId) {
+    // Remember what's actually playing right now, before we rebuild the queue.
+    const hasActiveTrack = this.currentIndex >= 0 && this.currentIndex < this.currentQueue.length;
+    const playingTrack = hasActiveTrack ? this.currentQueue[this.currentIndex] : null;
+
     this.activeContextId = contextId;
+
+    // Shuffle order is tied to the queue it was generated from. Carrying isShuffle=true
+    // and a stale originalQueue into a different context (e.g. Library -> a playlist)
+    // silently un-syncs them, so reset shuffle whenever the context changes.
+    if (this.isShuffle) {
+      this.isShuffle = false;
+      this.originalQueue = [];
+      if (typeof UI !== 'undefined' && UI.updateShuffleUI) UI.updateShuffleUI(false);
+    }
+
     if (contextId === 'library') {
       this.currentQueue = [...this.masterLibrary];
     } else {
       const pl = this.customPlaylists.find(p => p.id === contextId);
       this.currentQueue = pl ? pl.trackIds.map(id => this.masterLibrary.find(t => t.id === id)).filter(Boolean) : [];
     }
-    this.currentIndex = -1;
+
+    // If the track that's actively playing is also in the new queue (e.g. it's in
+    // both the Library and the playlist you just switched to), keep pointing at it
+    // instead of losing the "now playing" highlight and confusing Next/Prev.
+    this.currentIndex = playingTrack ? this.currentQueue.findIndex(t => t.id === playingTrack.id) : -1;
   },
 
   async exportJSON() {

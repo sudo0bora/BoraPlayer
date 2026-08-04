@@ -52,25 +52,33 @@ const AudioEngine = {
   initMediaSession() {
     if (!('mediaSession' in navigator)) return;
 
-    navigator.mediaSession.setActionHandler('play', () => this.togglePlay());
-    navigator.mediaSession.setActionHandler('pause', () => this.togglePlay());
-    navigator.mediaSession.setActionHandler('previoustrack', () => this.playPrevious());
-    navigator.mediaSession.setActionHandler('nexttrack', () => this.playNext());
+    // Per spec, setActionHandler() throws a TypeError for any action the platform
+    // doesn't support. WebKitGTK's Media Session support is partial/inconsistent,
+    // so every handler is wrapped individually — one unsupported action must not
+    // take down the rest of app init (or the whole app, since this runs at startup).
+    const safeSetHandler = (action, handler) => {
+      try {
+        navigator.mediaSession.setActionHandler(action, handler);
+      } catch (e) {
+        // Unsupported action on this platform; safe to ignore.
+      }
+    };
 
-    try {
-      navigator.mediaSession.setActionHandler('seekto', (details) => {
-        if (details.fastSeek && 'fastSeek' in this.audio) {
-          this.audio.fastSeek(details.seekTime);
-          return;
-        }
-        this.audio.currentTime = details.seekTime;
-        this.lastPosition = details.seekTime;
-      });
-    } catch (e) {
-      // Some browsers don't support the 'seekto' action; safe to ignore.
-    }
+    safeSetHandler('play', () => this.togglePlay());
+    safeSetHandler('pause', () => this.togglePlay());
+    safeSetHandler('previoustrack', () => this.playPrevious());
+    safeSetHandler('nexttrack', () => this.playNext());
 
-    navigator.mediaSession.setActionHandler('stop', () => {
+    safeSetHandler('seekto', (details) => {
+      if (details.fastSeek && 'fastSeek' in this.audio) {
+        this.audio.fastSeek(details.seekTime);
+        return;
+      }
+      this.audio.currentTime = details.seekTime;
+      this.lastPosition = details.seekTime;
+    });
+
+    safeSetHandler('stop', () => {
       this.audio.pause();
       this.audio.currentTime = 0;
       UI.updatePlayState(false);
@@ -78,16 +86,23 @@ const AudioEngine = {
   },
 
   updateMediaSessionMetadata(track) {
-    if (!('mediaSession' in navigator)) return;
+    if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
 
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: track.title || 'Unknown Title',
-      artist: track.artist || 'Unknown Artist',
-      album: track.album || 'Unknown Album',
-      artwork: track.artUrl ? [
-        { src: track.artUrl, sizes: '512x512', type: 'image/png' }
-      ] : []
-    });
+    // This previously threw uncaught on platforms with partial Media Session support
+    // (notably WebKitGTK on Linux), which happens BEFORE audio.play() is ever called
+    // in loadAndPlay() below — so a track would silently fail to start every time.
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: track.title || 'Unknown Title',
+        artist: track.artist || 'Unknown Artist',
+        album: track.album || 'Unknown Album',
+        artwork: track.artUrl ? [
+          { src: track.artUrl, sizes: '512x512', type: 'image/png' }
+        ] : []
+      });
+    } catch (e) {
+      console.warn('Media Session metadata not supported on this platform:', e);
+    }
   },
 
   loadAndPlay(track) {
@@ -163,9 +178,15 @@ const AudioEngine = {
       this.audio.currentTime = 0;
       return;
     }
-    const prevTrack = Playlist.getPrevTrack();
+    const wrapAround = (this.repeatMode === 1);
+    const prevTrack = Playlist.getPrevTrack(wrapAround);
     if (prevTrack) {
       this.loadAndPlay(prevTrack);
+    } else {
+      // Already at the first track with nothing to wrap to; restart it rather
+      // than silently doing nothing.
+      this.audio.currentTime = 0;
+      this.lastPosition = 0;
     }
   },
 
