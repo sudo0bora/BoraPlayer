@@ -4,6 +4,8 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   build-desktop:
     strategy:
@@ -46,43 +48,25 @@ jobs:
             src-tauri/target/release/bundle/nsis/*
           if-no-files-found: warn
 
-  build-android:
-    runs-on: ubuntu-22.04
+  publish-release:
+    needs: build-desktop
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
         with:
-          node-version: 20
-          cache: 'npm'
-      - name: Clean stale Android project
-        run: rm -rf src-tauri/gen/android
-      - name: Install Linux Dependencies
+          path: release-files
+      - name: Flatten release files
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libsoup-3.0-dev libappindicator3-dev librsvg2-dev patchelf build-essential libssl-dev libgtk-3-dev
-      - name: Install Rust stable with Android targets
-        uses: dtolnay/rust-toolchain@stable
+          mkdir -p flat
+          find release-files -type f \( -name "*.deb" -o -name "*.rpm" -o -name "*.AppImage" -o -name "*.msi" -o -name "*.exe" \) -exec cp {} flat/ \;
+          ls -la flat/
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
-      - name: Confirm Android Rust targets
-        run: rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
-      - name: Setup Java (JDK)
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-      - name: Install frontend dependencies
-        run: npm install
-      - name: Init Android project
-        run: npx tauri android init
-      - name: Build Android APK
-        run: npx tauri android build
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: boraplayer-android
-          path: src-tauri/gen/android/app/build/outputs/**
-          if-no-files-found: warn
+          files: flat/*
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

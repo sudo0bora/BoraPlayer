@@ -1,11 +1,67 @@
-build-desktop (windows-latest)	List bundle output (debug)	﻿2026-08-01T14:29:42.4400657Z ##[group]Run find src-tauri/target/release/bundle -type f || echo "bundle directory not found"
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4402126Z [36;1mfind src-tauri/target/release/bundle -type f || echo "bundle directory not found"[0m
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4476125Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4476489Z env:
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4476707Z   CARGO_HOME: C:\Users\runneradmin\.cargo
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4476973Z   CARGO_INCREMENTAL: 0
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4477210Z   CARGO_TERM_COLOR: always
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.4477475Z ##[endgroup]
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.7182624Z FIND: Parameter format not correct
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.7828191Z bundle directory not found
-build-desktop (windows-latest)	List bundle output (debug)	2026-08-01T14:29:42.8428957Z ##[error]Process completed with exit code 1.
+build-android	Build Android APK	﻿2026-08-05T18:11:41.8035560Z ##[group]Run npx tauri android build
+build-android	Build Android APK	2026-08-05T18:11:41.8035886Z [36;1mnpx tauri android build[0m
+build-android	Build Android APK	2026-08-05T18:11:41.8095571Z shell: /usr/bin/bash -e {0}
+build-android	Build Android APK	2026-08-05T18:11:41.8095821Z env:
+build-android	Build Android APK	2026-08-05T18:11:41.8096018Z   CARGO_HOME: /home/runner/.cargo
+build-android	Build Android APK	2026-08-05T18:11:41.8096276Z   CARGO_INCREMENTAL: 0
+build-android	Build Android APK	2026-08-05T18:11:41.8096492Z   CARGO_TERM_COLOR: always
+build-android	Build Android APK	2026-08-05T18:11:41.8096831Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build-android	Build Android APK	2026-08-05T18:11:41.8097330Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+build-android	Build Android APK	2026-08-05T18:11:41.8097718Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build-android	Build Android APK	2026-08-05T18:11:41.8098006Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build-android	Build Android APK	2026-08-05T18:11:41.8098281Z ##[endgroup]
+build-android	Build Android APK	2026-08-05T18:11:42.2036678Z         Info Using installed NDK: /usr/local/lib/android/sdk/ndk/29.0.14206865
+build-android	Build Android APK	2026-08-05T18:11:42.2072640Z         Info Looking up installed tauri packages to check mismatched versions...
+build-android	Build Android APK	2026-08-05T18:11:42.5424929Z Unable to find your web assets, did you forget to build your web app? Your frontendDist is set to "../dist" (which is `/home/runner/work/BoraPlayer/BoraPlayer/dist`).
+build-android	Build Android APK	2026-08-05T18:11:42.5427215Z        Error Unable to find your web assets, did you forget to build your web app? Your frontendDist is set to "../dist" (which is `/home/runner/work/BoraPlayer/BoraPlayer/dist`).
+build-android	Build Android APK	2026-08-05T18:11:42.5641352Z ##[error]Process completed with exit code 1.
+build-desktop (windows-latest)	Build Tauri Desktop	﻿2026-08-05T18:11:02.2228815Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2230234Z ##[group]Run tauri-apps/tauri-action@v0.5.2
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2230503Z with:
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2230682Z   releaseDraft: false
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2230890Z   prerelease: false
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2231082Z   projectPath: .
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2231274Z   includeDebug: false
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2231471Z   includeRelease: true
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2231671Z   includeUpdaterJson: true
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2231901Z   updaterJsonKeepUniversal: false
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2232148Z env:
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2232326Z   CARGO_HOME: C:\Users\runneradmin\.cargo
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2232573Z   CARGO_INCREMENTAL: 0
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2232763Z   CARGO_TERM_COLOR: always
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2235416Z   GITHUB_TOKEN: ***
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.2235617Z ##[endgroup]
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.3802984Z running npm [ 'run', 'tauri', 'build' ]
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.7264761Z 
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.7265303Z > tauri
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.7266115Z > tauri build
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:02.7266756Z 
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:05.8710466Z         Info Looking up installed tauri packages to check mismatched versions...
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:06.6442953Z Unable to find your web assets, did you forget to build your web app? Your frontendDist is set to "../dist" (which is `\\?\D:\a\BoraPlayer\BoraPlayer\dist`).
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:06.6444677Z        Error Unable to find your web assets, did you forget to build your web app? Your frontendDist is set to "../dist" (which is `\\?\D:\a\BoraPlayer\BoraPlayer\dist`).
+build-desktop (windows-latest)	Build Tauri Desktop	2026-08-05T18:11:06.6691063Z ##[error]Command failed with exit code 1: npm run tauri build
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	﻿2026-08-05T18:12:04.4263617Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4264932Z ##[group]Run tauri-apps/tauri-action@v0.5.2
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4265439Z with:
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4265762Z   releaseDraft: false
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4266003Z   prerelease: false
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4266199Z   projectPath: .
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4266389Z   includeDebug: false
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4266589Z   includeRelease: true
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4266794Z   includeUpdaterJson: true
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4267032Z   updaterJsonKeepUniversal: false
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4267471Z env:
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4267650Z   CARGO_HOME: /home/runner/.cargo
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4267879Z   CARGO_INCREMENTAL: 0
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4268080Z   CARGO_TERM_COLOR: always
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4270758Z   GITHUB_TOKEN: ***
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.4270979Z ##[endgroup]
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.5451486Z running npm [ 'run', 'tauri', 'build' ]
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.6813272Z 
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.6814017Z > tauri
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.6814420Z > tauri build
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:04.6814665Z 
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:05.5348411Z         Info Looking up installed tauri packages to check mismatched versions...
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:05.8566463Z Unable to find your web assets, did you forget to build your web app? Your frontendDist is set to "../dist" (which is `/home/runner/work/BoraPlayer/BoraPlayer/dist`).
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:05.8569599Z        Error Unable to find your web assets, did you forget to build your web app? Your frontendDist is set to "../dist" (which is `/home/runner/work/BoraPlayer/BoraPlayer/dist`).
+build-desktop (ubuntu-22.04)	Build Tauri Desktop	2026-08-05T18:12:05.8712401Z ##[error]Command failed with exit code 1: npm run tauri build
