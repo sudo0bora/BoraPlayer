@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Responsive Layout
+   Single breakpoint for tablet/phone widths. The sidebar becomes a bottom
+   tab bar, the player footer stacks vertically, and the track list drops
+   secondary columns (artist becomes a subtitle under the title, album and
+   play count are hidden) to avoid squeezing everything together.
+   ========================================================================== */
+
+@media (max-width: 720px) {
+
+  /* ---- Master layout: stack main content, tab bar, then player ---- */
+  #app-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto auto;
+    grid-template-areas:
+      "main"
+      "sidebar"
+      "player";
+  }
+
+  /* ---- Sidebar becomes a bottom tab bar ---- */
+  #sidebar {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-2xs) var(--space-sm);
+    gap: var(--space-2xs);
+    border-right: none;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .sidebar-header {
+    display: none;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sidebar-nav ul {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: var(--space-2xs);
+  }
+
+  .sidebar-nav li {
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 10px;
+    font-size: var(--font-size-xs);
+  }
+
+  .sidebar-footer {
+    flex-direction: row;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    gap: var(--space-2xs);
+  }
+
+  .sidebar-footer-btn {
+    flex-direction: column;
+    width: auto;
+    gap: 2px;
+    padding: 6px 10px;
+    font-size: var(--font-size-xs);
+  }
+
+  .btn-label {
+    display: none; /* icon-only in the crowded bottom bar; aria-label covers a11y */
+  }
+
+  /* ---- Main content area ---- */
+  #main-view {
+    padding: var(--space-md);
+    gap: var(--space-sm);
+  }
+
+  .view-header {
+    flex-wrap: wrap;
+    row-gap: var(--space-sm);
+  }
+
+  .view-header h1 {
+    font-size: var(--font-size-lg);
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+  }
+
+  .header-actions .secondary-btn,
+  .header-actions .primary-btn,
+  .header-actions .danger-btn {
+    padding: 7px 14px;
+    font-size: var(--font-size-xs);
+  }
+
+  /* ---- Track list: drop secondary columns, show artist as a subtitle ---- */
+  .playlist-header,
+  .track-row {
+    grid-template-columns: 1fr 44px;
+    gap: var(--space-sm);
+    padding: 10px 12px;
+  }
+
+  .playlist-header .col-artist,
+  .playlist-header .col-album,
+  .playlist-header .col-plays,
+  .track-row .col-artist,
+  .track-row .col-album,
+  .track-row .col-plays {
+    display: none;
+  }
+
+  .track-subtitle {
+    display: block;
+  }
+
+  .more-btn {
+    padding: 8px 10px;
+    font-size: 1.15rem;
+  }
+
+  .favorite-icon {
+    margin-right: var(--space-sm);
+  }
+
+  /* ---- Player footer: stack now-playing / controls / volume ---- */
+  #player-controls {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-xs);
+  }
+
+  .now-playing,
+  .playback-controls,
+  .extra-controls {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .extra-controls {
+    justify-content: center;
+  }
+
+  /* Dragging a 100px slider in a cramped footer is fiddly on touch;
+     the mute button remains for quick access. */
+  .extra-controls input#volume-slider {
+    display: none;
+  }
+
+  .control-btn {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-lg);
+  }
+
+  .control-btn.play-main {
+    width: 46px;
+    height: 46px;
+  }
+
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  /* ---- Queue panel: full-screen overlay instead of a side drawer ---- */
+  .queue-panel {
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    right: 0;
+  }
+
+  /* ---- Toasts: clear the taller stacked footer, stay within viewport ---- */
+  .toast-container {
+    bottom: 230px;
+    left: var(--space-sm);
+    right: var(--space-sm);
+  }
+
+  .toast {
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .album-art-placeholder {
+    width: 40px;
+    height: 40px;
+  }
+
+  .settings-content,
+  .shortcuts-content {
+    padding: var(--space-md);
+  }
+}

@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Audio Visualizer & Picture-in-Picture
+   - Visualizer: a collapsible strip above the player footer. Collapsed to
+     0 height when off so it costs nothing visually; the JS module is what
+     guarantees 0% CPU by cancelling its rAF loop on toggle-off.
+   - PiP: the source <video>/<canvas> pair must stay attached and rendering
+     (required for captureStream + requestPictureInPicture) but are never
+     meant to be seen in the app's own window — they're parked off-screen.
+   ========================================================================== */
+
+.visualizer-wrap {
+  position: relative;
+  flex-shrink: 0;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-surface);
+  border: 1px solid transparent;
+  transition: height var(--transition-normal), border-color var(--transition-normal);
+}
+
+.visualizer-wrap.visualizer-active {
+  height: 88px;
+  border-color: var(--border-color);
+}
+
+#visualizer-canvas {
+  display: block;
+  width: 100%;
+  /* Fixed, not 100% of the parent. .visualizer-wrap animates its height
+     from 0 -> 88px on toggle, and resizeCanvas() measures the CANVAS's own
+     box via getBoundingClientRect() the instant it's toggled on. With
+     height:100% that measurement raced the transition and often caught the
+     canvas at (or near) 0px tall, silently squashing every render style
+     into what looked like flat "bars" no matter which was selected — PiP
+     never showed this because its canvas has a fixed width/height attribute
+     instead of being measured from a transitioning container. Matching this
+     to .visualizer-wrap.visualizer-active's height removes the race
+     entirely: the canvas's own layout box is always 88px, whether or not
+     the parent has finished (or even started) expanding to reveal it.
+     Keep both values in sync if you change one. */
+  height: 88px;
+}
+
+/* Active-state highlight shared by the two footer toggle buttons */
+#visualizer-toggle-btn[data-active="true"],
+#pip-toggle-btn[data-active="true"] {
+  background-color: var(--primary-alpha, rgba(29, 185, 84, 0.15));
+}
+
+/* Extra-controls now hosts 5 buttons + the volume slider; let it wrap on
+   narrower windows instead of squeezing everything unreadable. */
+.extra-controls {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  row-gap: 2px;
+}
+
+/* Off-screen host for the PiP video/canvas. Kept in the DOM and actually
+   rendering (display:none or visibility:hidden break captureStream/PiP in
+   most browsers) but positioned where it will never be visible in-app. */
+.pip-offscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
